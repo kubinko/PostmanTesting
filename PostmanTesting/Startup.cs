@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
+using PostmanTesting.Options;
 
 namespace PostmanTesting
 {
@@ -30,6 +32,29 @@ namespace PostmanTesting
         public override void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            var jwtOptions = Configuration.GetSection("ApiJwtAuthorization").Get<ApiJwtAuthorizationSettings>();
+            services.AddAuthentication(jwtOptions.Scheme)
+                .AddJwtBearer(jwtOptions.Scheme, options =>
+                {
+                    options.Authority = jwtOptions.Authority;
+                    options.RequireHttpsMetadata = jwtOptions.RequireHttpsMetadata;
+
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateAudience = false
+                    };
+                });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ApiScope", policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireClaim("scope", jwtOptions.Scope);
+                });
+            });
+
             services.AddSwaggerDocumentation(Configuration);
             services
                 .AddHealthChecks()
@@ -56,12 +81,15 @@ namespace PostmanTesting
             }
 
             app.UseRouting();
-            app.UseAuthorization();
+
             app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHealthChecks("/health");
-                endpoints.MapControllers();
+                endpoints.MapControllers()
+                    .RequireAuthorization("ApiScope"); ;
             });
         }
     }
