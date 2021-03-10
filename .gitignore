@@ -339,3 +339,4 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 /PostmanTesting/PostmanTesting.xml
+/IdentityServer/tempkey.jwk
