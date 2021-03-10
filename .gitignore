@@ -340,3 +340,4 @@ ASALocalRun/
 healthchecksdb
 /PostmanTesting/PostmanTesting.xml
 /IdentityServer/tempkey.jwk
+/PostmanTesting/appsettings.local.json

@@ -1,6 +1,9 @@
 using Kros.AspNetCore;
+using Kros.AspNetCore.HealthChecks;
+using Kros.KORM.Extensions.Asp;
 using Kros.Swagger.Extensions;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +11,7 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using PostmanTesting.Infrastructure;
 using PostmanTesting.Options;
 
 namespace PostmanTesting
@@ -33,6 +37,20 @@ namespace PostmanTesting
         {
             services.AddControllers();
 
+            ConfigureAuthentication(services);
+            ConfigureDatabase(services);
+
+            services.AddSwaggerDocumentation(Configuration);
+            services
+                .AddHealthChecks()
+                    .AddCheck(ApiName, _ => HealthCheckResult.Healthy(), tags: new[] { "api" })
+                    .AddSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+                        name: $" {ApiName} database",
+                        tags: new[] { "db", "sql" });
+        }
+
+        private void ConfigureAuthentication(IServiceCollection services)
+        {
             var jwtOptions = Configuration.GetSection("ApiJwtAuthorization").Get<ApiJwtAuthorizationSettings>();
             services.AddAuthentication(jwtOptions.Scheme)
                 .AddJwtBearer(jwtOptions.Scheme, options =>
@@ -54,11 +72,18 @@ namespace PostmanTesting
                     policy.RequireClaim("scope", jwtOptions.Scope);
                 });
             });
+        }
 
-            services.AddSwaggerDocumentation(Configuration);
-            services
-                .AddHealthChecks()
-                .AddCheck(ApiName, _ => HealthCheckResult.Healthy(), tags: new[] { "api" });
+        private void ConfigureDatabase(IServiceCollection services)
+        {
+            services.AddKorm(Configuration)
+                .UseDatabaseConfiguration(new DatabaseConfiguration(services))
+                .InitDatabaseForIdGenerator()
+                .AddKormMigrations(o =>
+                {
+                    o.AddFileScriptsProvider("SqlScripts");
+                })
+                .Migrate();
         }
 
         /// <summary>
@@ -87,7 +112,12 @@ namespace PostmanTesting
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHealthChecks("/health");
+                app.UseHealthChecks("/health", new HealthCheckOptions
+                {
+                    Predicate = _ => true,
+                    ResponseWriter = HealthCheckResponseWriter.WriteHealthCheckResponseAsync
+                });
+
                 endpoints.MapControllers()
                     .RequireAuthorization("ApiScope"); ;
             });
