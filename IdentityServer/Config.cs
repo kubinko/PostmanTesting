@@ -1,6 +1,7 @@
 ﻿using IdentityServer4.Models;
 using IdentityServer4.Test;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace IdentityServer
 {
@@ -9,10 +10,23 @@ namespace IdentityServer
     /// </summary>
     public class Config
     {
+        public static IEnumerable<IdentityResource> IdentityResources
+            => new List<IdentityResource>
+            {
+                new IdentityResources.OpenId(),
+                new IdentityResources.Profile(),
+                new IdentityResource()
+                {
+                    Name = "role",
+                    DisplayName = "User role",
+                    UserClaims = new[] { ClaimTypes.Role }
+                }
+            };
+
         public static IEnumerable<ApiScope> GetApiScopes()
             => new List<ApiScope>
             {
-                new ApiScope("api1", "My API")
+                new ApiScope("api1", "My API", new string[] { ClaimTypes.Role })
             };
 
         public static IEnumerable<Client> GetClients()
@@ -27,7 +41,7 @@ namespace IdentityServer
                         new Secret("secret".Sha256())
                     },
                     RequireClientSecret = false,
-                    AllowedScopes = { "api1" }
+                    AllowedScopes = { "api1", "openid", "profile", "role" }
                 }
             };
 
@@ -38,7 +52,11 @@ namespace IdentityServer
                 {
                     SubjectId = "1",
                     Username = "alice",
-                    Password = "password"
+                    Password = "password",
+                    Claims =
+                    {
+                        new Claim(ClaimTypes.Role, "Admin")
+                    }
                 },
                 new TestUser
                 {

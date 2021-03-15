@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using PostmanTesting.Infrastructure;
 using PostmanTesting.Options;
+using System.Security.Claims;
 
 namespace PostmanTesting
 {
@@ -35,6 +36,8 @@ namespace PostmanTesting
         /// <param name="services">Service.</param>
         public override void ConfigureServices(IServiceCollection services)
         {
+            base.ConfigureServices(services);
+
             services.AddControllers();
 
             ConfigureAuthentication(services);
@@ -70,6 +73,11 @@ namespace PostmanTesting
                 {
                     policy.RequireAuthenticatedUser();
                     policy.RequireClaim("scope", jwtOptions.Scope);
+                });
+                options.AddPolicy(Policies.AdminPolicyName, policyAdmin =>
+                {
+                    policyAdmin.AuthenticationSchemes.Add(jwtOptions.Scheme);
+                    policyAdmin.RequireClaim(ClaimTypes.Role, Policies.AdminPolicyName);
                 });
             });
         }
