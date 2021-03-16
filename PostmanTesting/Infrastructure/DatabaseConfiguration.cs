@@ -14,11 +14,6 @@ namespace PostmanTesting.Infrastructure
     public class DatabaseConfiguration : DatabaseConfigurationBase
     {
         /// <summary>
-        /// Name of Addresses table in database.
-        /// </summary>
-        public const string AddressesTableName = "Addresses";
-
-        /// <summary>
         /// Name of Workshops table in database.
         /// </summary>
         public const string WorkshopsTableName = "Workshops";
@@ -55,11 +50,6 @@ namespace PostmanTesting.Infrastructure
         public override void OnModelCreating(ModelConfigurationBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Address>()
-                .HasTableName(AddressesTableName)
-                .HasPrimaryKey(f => f.Id).AutoIncrement()
-                .UseConverterForProperties<string>(NullAndTrimStringConverter.ConvertNull);
 
             modelBuilder.Entity<Workshop>()
                 .HasTableName(WorkshopsTableName)
