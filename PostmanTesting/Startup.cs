@@ -7,20 +7,14 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
-using PostmanTesting.Infrastructure;
 using PostmanTesting.Options;
-using System.Security.Claims;
 
 namespace PostmanTesting
 {
     public class Startup : BaseStartup
     {
-        private const string ApiName = "Postman Testing API v1";
-
         /// <summary>
         /// Ctor.
         /// </summary>
@@ -39,59 +33,12 @@ namespace PostmanTesting
             base.ConfigureServices(services);
 
             services.AddControllers();
+            services.AddJwtAuthentication(Configuration.GetSection("ApiJwtAuthorization").Get<ApiJwtAuthorizationSettings>());
 
-            ConfigureAuthentication(services);
-            ConfigureDatabase(services);
+            services.AddKorm(Configuration);
 
             services.AddSwaggerDocumentation(Configuration);
-            services
-                .AddHealthChecks()
-                    .AddCheck(ApiName, _ => HealthCheckResult.Healthy(), tags: new[] { "api" })
-                    .AddSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                        name: $" {ApiName} database",
-                        tags: new[] { "db", "sql" });
-        }
-
-        private void ConfigureAuthentication(IServiceCollection services)
-        {
-            var jwtOptions = Configuration.GetSection("ApiJwtAuthorization").Get<ApiJwtAuthorizationSettings>();
-            services.AddAuthentication(jwtOptions.Scheme)
-                .AddJwtBearer(jwtOptions.Scheme, options =>
-                {
-                    options.Authority = jwtOptions.Authority;
-                    options.RequireHttpsMetadata = jwtOptions.RequireHttpsMetadata;
-
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateAudience = false
-                    };
-                });
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("ApiScope", policy =>
-                {
-                    policy.RequireAuthenticatedUser();
-                    policy.RequireClaim("scope", jwtOptions.Scope);
-                });
-                options.AddPolicy(Policies.AdminPolicyName, policyAdmin =>
-                {
-                    policyAdmin.AuthenticationSchemes.Add(jwtOptions.Scheme);
-                    policyAdmin.RequireClaim(ClaimTypes.Role, Policies.AdminPolicyName);
-                });
-            });
-        }
-
-        private void ConfigureDatabase(IServiceCollection services)
-        {
-            services.AddKorm(Configuration)
-                .UseDatabaseConfiguration(new DatabaseConfiguration(services))
-                .InitDatabaseForIdGenerator()
-                .AddKormMigrations(o =>
-                {
-                    o.AddFileScriptsProvider("SqlScripts");
-                })
-                .Migrate();
+            services.AddBasicHealthChecks(Configuration);
         }
 
         /// <summary>
@@ -109,7 +56,7 @@ namespace PostmanTesting
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", ApiName);
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Postman Testing API v1");
                 });
             }
 
