@@ -72,7 +72,9 @@ namespace Microsoft.Extensions.DependencyInjection
         /// </summary>
         /// <param name="services">DI container.</param>
         public static void AddRepositories(this IServiceCollection services)
-            => services.AddScoped<IWorkshopRepository, WorkshopRepository>();
+            => services
+                .AddScoped<IWorkshopRepository, WorkshopRepository>()
+                .AddScoped<IAttendeeRepository, AttendeeRepository>();
 
         /// <summary>
         /// Adds basic health checks.
