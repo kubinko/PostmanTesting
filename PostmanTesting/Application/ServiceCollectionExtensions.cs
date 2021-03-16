@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
+using PostmanTesting.Domain;
 using PostmanTesting.Infrastructure;
 using PostmanTesting.Options;
 using System.Security.Claims;
@@ -65,6 +66,13 @@ namespace Microsoft.Extensions.DependencyInjection
                 o.AddFileScriptsProvider("SqlScripts");
             })
             .Migrate();
+
+        /// <summary>
+        /// Adds repositories.
+        /// </summary>
+        /// <param name="services">DI container.</param>
+        public static void AddRepositories(this IServiceCollection services)
+            => services.AddScoped<IWorkshopRepository, WorkshopRepository>();
 
         /// <summary>
         /// Adds basic health checks.

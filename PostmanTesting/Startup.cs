@@ -36,6 +36,7 @@ namespace PostmanTesting
             services.AddJwtAuthentication(Configuration.GetSection("ApiJwtAuthorization").Get<ApiJwtAuthorizationSettings>());
 
             services.AddKorm(Configuration);
+            services.AddRepositories();
 
             services.AddSwaggerDocumentation(Configuration);
             services.AddBasicHealthChecks(Configuration);
