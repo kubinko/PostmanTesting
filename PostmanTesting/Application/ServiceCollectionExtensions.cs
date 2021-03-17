@@ -1,7 +1,9 @@
 ﻿using Kros.KORM.Extensions.Asp;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
+using PostmanTesting.Application.Services;
 using PostmanTesting.Domain;
 using PostmanTesting.Infrastructure;
 using PostmanTesting.Options;
@@ -75,6 +77,15 @@ namespace Microsoft.Extensions.DependencyInjection
             => services
                 .AddScoped<IWorkshopRepository, WorkshopRepository>()
                 .AddScoped<IAttendeeRepository, AttendeeRepository>();
+
+        /// <summary>
+        /// Adds services.
+        /// </summary>
+        /// <param name="services">DI container.</param>
+        public static void AddServices(this IServiceCollection services)
+            => services
+                .AddScoped(s => s.GetService<HttpContext>().User)
+                .AddScoped<IActiveUserInfoService, ActiveUserInfoService>();
 
         /// <summary>
         /// Adds basic health checks.

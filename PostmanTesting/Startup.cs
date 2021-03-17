@@ -1,6 +1,5 @@
 using Kros.AspNetCore;
 using Kros.AspNetCore.HealthChecks;
-using Kros.KORM.Extensions.Asp;
 using Kros.Swagger.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -35,8 +34,9 @@ namespace PostmanTesting
             services.AddControllers();
             services.AddJwtAuthentication(Configuration.GetSection("ApiJwtAuthorization").Get<ApiJwtAuthorizationSettings>());
 
-            services.AddKorm(Configuration);
+            services.ConfigureDatabase(Configuration);
             services.AddRepositories();
+            services.AddServices();
 
             services.AddSwaggerDocumentation(Configuration);
             services.AddBasicHealthChecks(Configuration);
