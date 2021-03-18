@@ -1,18 +1,15 @@
 ﻿using System;
 
-namespace PostmanTesting.Domain
+namespace PostmanTesting.Application.Commands
 {
     /// <summary>
-    /// Workshop model.
+    /// Command for creating workshop.
     /// </summary>
-    public class Workshop
+    public class CreateWorkshopCommand
     {
-        public long Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime Date { get; set; }
         public decimal Price { get; set; }
-        public int AttendeesCount { get; set; }
-        public long CreatedBy { get; set; }
     }
 }
