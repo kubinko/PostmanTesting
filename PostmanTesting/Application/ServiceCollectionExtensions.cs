@@ -85,7 +85,9 @@ namespace Microsoft.Extensions.DependencyInjection
         public static void AddServices(this IServiceCollection services)
             => services
                 .AddScoped(s => s.GetService<HttpContext>().User)
-                .AddScoped<IActiveUserInfoService, ActiveUserInfoService>();
+                .AddScoped<IActiveUserInfoService, ActiveUserInfoService>()
+                .AddScoped<IWorkshopService, WorkshopService>()
+                .AddScoped<IAttendeeService, AttendeeService>();
 
         /// <summary>
         /// Adds basic health checks.
