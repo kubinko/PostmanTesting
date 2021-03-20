@@ -84,7 +84,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="services">DI container.</param>
         public static void AddServices(this IServiceCollection services)
             => services
-                .AddScoped(s => s.GetService<HttpContext>().User)
+                .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
                 .AddScoped<IActiveUserInfoService, ActiveUserInfoService>()
                 .AddScoped<IWorkshopService, WorkshopService>()
                 .AddScoped<IAttendeeService, AttendeeService>();

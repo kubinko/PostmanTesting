@@ -1,4 +1,5 @@
 ﻿using Kros.Utils;
+using Microsoft.AspNetCore.Http;
 using PostmanTesting.Infrastructure;
 using System;
 using System.Linq;
@@ -24,10 +25,10 @@ namespace PostmanTesting.Application.Services
         /// <summary>
         /// Ctor.
         /// </summary>
-        /// <param name="principal"><see cref="ClaimsPrincipal"/></param>
-        public ActiveUserInfoService(ClaimsPrincipal principal)
+        /// <param name="contextAccessor"><see cref="IHttpContextAccessor"/></param>
+        public ActiveUserInfoService(IHttpContextAccessor contextAccessor)
         {
-            _principal = Check.NotNull(principal, nameof(principal));
+            _principal = Check.NotNull(contextAccessor.HttpContext.User, nameof(contextAccessor));
             _userId = new Lazy<long>(GetUserId);
             _userRole = new Lazy<string>(GetUserRole);
         }
@@ -35,7 +36,7 @@ namespace PostmanTesting.Application.Services
         private long GetUserId()
         {
             string userId = _principal.Claims
-                .FirstOrDefault(c => c.Type == IdentityModel.JwtClaimTypes.Subject)?.Value ?? string.Empty;
+                .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
 
             if (long.TryParse(userId, out long id))
             {

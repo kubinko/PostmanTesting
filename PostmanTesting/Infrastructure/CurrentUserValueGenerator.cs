@@ -1,5 +1,6 @@
 ﻿using Kros.KORM;
 using Kros.Utils;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
@@ -27,8 +28,9 @@ namespace PostmanTesting.Infrastructure
         public object GetValue()
         {
             using var scope = _serviceProvider.CreateScope();
-            var principal = scope.ServiceProvider.GetService<ClaimsPrincipal>();
-            string userId = principal.Claims.FirstOrDefault(p => p.Type == "sub")?.Value ?? string.Empty;
+            var principal = scope.ServiceProvider.GetService<IHttpContextAccessor>();
+            string userId = principal.HttpContext.User.Claims
+                .FirstOrDefault(p => p.Type == ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
 
             return long.TryParse(userId, out long id) ? id : -1;
         }
