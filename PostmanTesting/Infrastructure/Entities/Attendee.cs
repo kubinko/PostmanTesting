@@ -8,7 +8,6 @@ namespace PostmanTesting.Infrastructure.Entities
     public class Attendee
     {
         public long Id { get; set; }
-        public long WorkshopId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Street { get; set; }

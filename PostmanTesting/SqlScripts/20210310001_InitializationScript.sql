@@ -24,9 +24,12 @@ GO
 
 CREATE TABLE [dbo].[Attendees](
     [Id] [bigint] IDENTITY(1,1) NOT NULL,
-    [WorkshopId] bigint FOREIGN KEY REFERENCES Workshops(Id),
     [Name] nvarchar(50) NOT NULL DEFAULT (''),
     [Surname] nvarchar(100) NOT NULL DEFAULT (''),
+    [Street] nvarchar(255) NOT NULL DEFAULT (''),
+    [PostCode] nvarchar(20) NOT NULL DEFAULT (''),
+    [City] nvarchar(255) NOT NULL DEFAULT (''),
+    [Country] nvarchar(255) NOT NULL DEFAULT (''),
     [PhoneNumber] nvarchar(40) NOT NULL DEFAULT (''),
     [Email] nvarchar(255) NOT NULL DEFAULT (''),
     [CreatedTimestamp] datetimeoffset(2) NOT NULL DEFAULT CURRENT_TIMESTAMP,
