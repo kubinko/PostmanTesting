@@ -1,9 +1,9 @@
 ﻿namespace PostmanTesting.Domain
 {
     /// <summary>
-    /// Attendee model.
+    /// Person model.
     /// </summary>
-    public class Attendee
+    public class Person
     {
         public long Id { get; set; }
         public string Name { get; set; }

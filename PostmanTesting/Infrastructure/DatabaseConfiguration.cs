@@ -19,9 +19,9 @@ namespace PostmanTesting.Infrastructure
         public const string WorkshopsTableName = "Workshops";
 
         /// <summary>
-        /// Name of Attendees table in database.
+        /// Name of People table in database.
         /// </summary>
-        public const string AttendeesTableName = "Attendees";
+        public const string PeopleTableName = "People";
 
         private readonly IServiceCollection _services;
         private IServiceProvider _serviceProvider;
@@ -60,8 +60,8 @@ namespace PostmanTesting.Infrastructure
                 .Property(f => f.CreatedBy).UseValueGeneratorOnInsert(new CurrentUserValueGenerator(ServiceProvider))
                 .Property(f => f.LastModifiedBy).UseValueGeneratorOnInsertOrUpdate(new CurrentUserValueGenerator(ServiceProvider));
 
-            modelBuilder.Entity<Attendee>()
-                .HasTableName(AttendeesTableName)
+            modelBuilder.Entity<Person>()
+                .HasTableName(PeopleTableName)
                 .HasPrimaryKey(f => f.Id).AutoIncrement()
                 .UseConverterForProperties<string>(NullAndTrimStringConverter.ConvertNull)
                 .Property(f => f.CreatedTimestamp).UseCurrentTimeValueGenerator(ValueGenerated.OnInsert)

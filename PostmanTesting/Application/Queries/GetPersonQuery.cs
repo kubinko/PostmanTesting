@@ -1,28 +1,28 @@
 ﻿namespace PostmanTesting.Application.Queries
 {
     /// <summary>
-    /// Query to get attendee by ID.
+    /// Query to get person by ID.
     /// </summary>
-    public class GetAttendeeQuery
+    public class GetPersonQuery
     {
         /// <summary>
         /// Ctor.
         /// </summary>
-        /// <param name="id">Attendee id.</param>
-        public GetAttendeeQuery(long id)
+        /// <param name="id">Person id.</param>
+        public GetPersonQuery(long id)
         {
             Id = id;
         }
 
         /// <summary>
-        /// Attendee ID.
+        /// Person ID.
         /// </summary>
         public long Id { get; set; }
 
         /// <summary>
-        /// Attendee.
+        /// Person.
         /// </summary>
-        public class Attendee
+        public class Person
         {
             public long Id { get; set; }
             public string Name { get; set; }

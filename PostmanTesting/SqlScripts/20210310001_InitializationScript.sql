@@ -22,7 +22,7 @@ CREATE TABLE [dbo].[Workshops](
 ) ON [PRIMARY]
 GO
 
-CREATE TABLE [dbo].[Attendees](
+CREATE TABLE [dbo].[People](
     [Id] [bigint] IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(50) NOT NULL DEFAULT (''),
     [Surname] nvarchar(100) NOT NULL DEFAULT (''),
@@ -36,7 +36,7 @@ CREATE TABLE [dbo].[Attendees](
     [CreatedBy] bigint NOT NULL,
     [LastModifiedTimestamp] datetimeoffset(2) NOT NULL,
     [LastModifiedBy] bigint NOT NULL
- CONSTRAINT [PK_Attendees] PRIMARY KEY CLUSTERED
+ CONSTRAINT [PK_People] PRIMARY KEY CLUSTERED
 (
     [Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]

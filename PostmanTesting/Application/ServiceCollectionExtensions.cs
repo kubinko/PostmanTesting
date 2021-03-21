@@ -76,7 +76,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static void AddRepositories(this IServiceCollection services)
             => services
                 .AddScoped<IWorkshopRepository, WorkshopRepository>()
-                .AddScoped<IAttendeeRepository, AttendeeRepository>();
+                .AddScoped<IPeopleRepository, PersonRepository>();
 
         /// <summary>
         /// Adds services.
@@ -87,7 +87,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
                 .AddScoped<IActiveUserInfoService, ActiveUserInfoService>()
                 .AddScoped<IWorkshopService, WorkshopService>()
-                .AddScoped<IAttendeeService, AttendeeService>();
+                .AddScoped<IPeopleService, PeopleService>();
 
         /// <summary>
         /// Adds basic health checks.

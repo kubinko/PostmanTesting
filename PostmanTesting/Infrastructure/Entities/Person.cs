@@ -1,13 +1,12 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
 
-namespace PostmanTesting.Application.Commands
+namespace PostmanTesting.Infrastructure.Entities
 {
     /// <summary>
-    /// Command for updating attendee.
+    /// Person DB model.
     /// </summary>
-    public class UpdateAttendeeCommand
+    public class Person
     {
-        [JsonIgnore]
         public long Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -17,5 +16,9 @@ namespace PostmanTesting.Application.Commands
         public string Country { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
+        public DateTimeOffset CreatedTimestamp { get; set; }
+        public long CreatedBy { get; set; }
+        public DateTimeOffset LastModifiedTimestamp { get; set; }
+        public long LastModifiedBy { get; set; }
     }
 }

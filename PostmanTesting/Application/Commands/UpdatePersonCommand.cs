@@ -1,10 +1,14 @@
-﻿namespace PostmanTesting.Application.Commands
+﻿using System.Text.Json.Serialization;
+
+namespace PostmanTesting.Application.Commands
 {
     /// <summary>
-    /// Command for creating attendee.
+    /// Command for updating person.
     /// </summary>
-    public class CreateAttendeeCommand
+    public class UpdatePersonCommand
     {
+        [JsonIgnore]
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Street { get; set; }
