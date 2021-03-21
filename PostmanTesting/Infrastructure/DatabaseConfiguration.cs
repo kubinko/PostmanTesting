@@ -23,6 +23,11 @@ namespace PostmanTesting.Infrastructure
         /// </summary>
         public const string PeopleTableName = "People";
 
+        /// <summary>
+        /// Name of Attendance table in database.
+        /// </summary>
+        public const string AttendanceTableName = "Attendance";
+
         private readonly IServiceCollection _services;
         private IServiceProvider _serviceProvider;
 
@@ -68,6 +73,10 @@ namespace PostmanTesting.Infrastructure
                 .Property(f => f.LastModifiedTimestamp).UseCurrentTimeValueGenerator(ValueGenerated.OnInsertOrUpdate)
                 .Property(f => f.CreatedBy).UseValueGeneratorOnInsert(new CurrentUserValueGenerator(ServiceProvider))
                 .Property(f => f.LastModifiedBy).UseValueGeneratorOnInsertOrUpdate(new CurrentUserValueGenerator(ServiceProvider));
+
+            modelBuilder.Entity<Attendance>()
+                .HasTableName(AttendanceTableName)
+                .HasPrimaryKey(f => f.Id).AutoIncrement();
         }
     }
 }

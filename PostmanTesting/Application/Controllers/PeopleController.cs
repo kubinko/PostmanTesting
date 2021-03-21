@@ -35,6 +35,7 @@ namespace PostmanTesting.Application.Controllers
         /// <summary>
         /// Gets person by ID.
         /// </summary>
+        /// <param name="id">Person ID.</param>
         /// <response code="200">Ok.</response>
         /// <response code="403">
         /// Forbidden when user doesn't have permission for person with <paramref name="id"/>.
