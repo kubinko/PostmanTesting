@@ -1,4 +1,5 @@
-﻿using Kros.KORM.Extensions.Asp;
+﻿using FluentValidation.AspNetCore;
+using Kros.KORM.Extensions.Asp;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -7,6 +8,7 @@ using PostmanTesting.Application.Services;
 using PostmanTesting.Domain;
 using PostmanTesting.Infrastructure;
 using PostmanTesting.Options;
+using System.Reflection;
 using System.Security.Claims;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -17,6 +19,18 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class ServiceCollectionExtensions
     {
         private const string ApiName = "Postman Testing API v1";
+
+        /// <summary>
+        /// Registers FluentValidation.
+        /// </summary>
+        /// <param name="builder">MVC builder.</param>
+        /// <returns>MVC builder.</returns>
+        public static IMvcBuilder AddFluentValidation(this IMvcBuilder builder)
+            => builder.AddFluentValidation(o =>
+            {
+                o.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+                o.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+            });
 
         /// <summary>
         /// Adds authentication and authorization.

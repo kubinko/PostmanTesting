@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="5.0.2" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="9.5.3" />
     <PackageReference Include="Kros.AspNetCore" Version="2.24.0" />
     <PackageReference Include="Kros.KORM" Version="4.0.0-alpha.22" />
     <PackageReference Include="Kros.KORM.Extensions.Asp" Version="1.1.0-alpha.7" />

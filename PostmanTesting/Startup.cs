@@ -31,7 +31,10 @@ namespace PostmanTesting
         {
             base.ConfigureServices(services);
 
-            services.AddControllers();
+            services
+                .AddControllers()
+                .AddFluentValidation();
+
             services.AddJwtAuthentication(Configuration.GetSection("ApiJwtAuthorization").Get<ApiJwtAuthorizationSettings>());
 
             services.ConfigureDatabase(Configuration);
