@@ -64,6 +64,7 @@ namespace PostmanTesting
                 });
             }
 
+            app.UseExceptionHandler("/error");
             app.UseRouting();
 
             app.UseAuthentication();

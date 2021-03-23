@@ -42,8 +42,9 @@ namespace PostmanTesting.Infrastructure
         public IEnumerable<Domain.Person> GetWorkshopAttendees(long id)
         {
             var attendance = _database.Query<Attendance>().Where(a => a.WorkshopId == id).ToArray();
+            string condition = $"ID IN ({(attendance.Any() ? string.Join(',', attendance.Select(a => a.PersonId)) : " - 1")})";
             var people = _database.Query<Entities.Person>()
-                .Where($"ID IN (@1)", attendance.Any() ? string.Join(',', attendance.Select(a => a.PersonId)) : "-1")
+                .Where(condition)
                 .ToArray();
 
             return people.Select(p => p.Adapt<Domain.Person>());
@@ -52,9 +53,10 @@ namespace PostmanTesting.Infrastructure
         /// <inheritdoc/>
         public IEnumerable<Domain.Workshop> GetPersonWorkshops(long id)
         {
-            var attendance = _database.Query<Attendance>().Where(a => a.WorkshopId == id).ToArray();
+            var attendance = _database.Query<Attendance>().Where(a => a.PersonId == id).ToArray();
+            string condition = $"ID IN ({(attendance.Any() ? string.Join(',', attendance.Select(a => a.WorkshopId)) : "-1")})";
             var workshops = _database.Query<Entities.Workshop>()
-                .Where($"ID IN (@1)", attendance.Any() ? string.Join(',', attendance.Select(a => a.WorkshopId)) : "-1")
+                .Where(condition)
                 .ToArray();
 
             return workshops.Select(p => p.Adapt<Domain.Workshop>());
