@@ -29,8 +29,6 @@ namespace PostmanTesting
         /// <param name="services">Service.</param>
         public override void ConfigureServices(IServiceCollection services)
         {
-            base.ConfigureServices(services);
-
             services
                 .AddControllers()
                 .AddFluentValidation();
@@ -52,8 +50,6 @@ namespace PostmanTesting
         /// <param name="loggerFactory">The logger factory.</param>
         public override void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
-            base.Configure(app, loggerFactory);
-
             if (Environment.IsTestOrDevelopment())
             {
                 app.UseDeveloperExceptionPage();

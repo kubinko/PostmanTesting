@@ -341,3 +341,6 @@ healthchecksdb
 /PostmanTesting/PostmanTesting.xml
 /IdentityServer/tempkey.jwk
 /PostmanTesting/appsettings.local.json
+/IdentityServer/Properties/ServiceDependencies/berthoty-meetup-is - Web Deploy/profile.arm.json
+/PostmanTesting/Properties/ServiceDependencies/berthoty-meetup-app - Web Deploy/profile.arm.json
+/PostmanTesting/.config/dotnet-tools.json
