@@ -1,0 +1,440 @@
+{
+	"info": {
+		"_postman_id": "2b0c5202-1c04-451f-8761-70af97fe76c5",
+		"name": "General",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "HealthChecks",
+			"item": [
+				{
+					"name": "Api health",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Api should be healthy\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/health",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "Allow anonymous",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Anonymous endpoint should be accessible without token\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/test",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authorized with admin token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Authorized endpoint should be accessible with admin token\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Temp.AdminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/test/authorized",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"test",
+								"authorized"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authorized with common token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Authorized endpoint should be accessible with common token\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Temp.CommonAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/test/authorized",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"test",
+								"authorized"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authorized without token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Authorized endpoint should not be accessible without token\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/test/authorized",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"test",
+								"authorized"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin authorized with admin token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Admin endpoint should be accessible with admin token\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Temp.AdminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/test/admin",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"test",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin authorized with common token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Admin endpoint should not be accessible with common token\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Temp.CommonAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/test/admin",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"test",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin authorized without token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Admin endpoint should not be accessible without token\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/test/admin",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"test",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Swagger",
+			"item": [
+				{
+					"name": "Check availibility",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Should return 404 in production, otherwise 200\", function () {\r",
+									"    if(pm.environment.get(\"Environment\").toLowerCase().startsWith(\"prod\")) {\r",
+									"        pm.response.to.have.status(404);\r",
+									"    } else {\r",
+									"        pm.response.to.have.status(200);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/swagger",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"swagger"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"if (!pm.environment.get(\"Temp.AdminAccessToken\") ||",
+					"    pm.environment.get(\"Temp.AdminAccessToken.Timeout\") < Date.now())",
+					"{",
+					"    pm.sendRequest(",
+					"        {",
+					"            url: pm.environment.get(\"IdentityServerUrl\"),",
+					"            method: 'POST',",
+					"            header: {",
+					"                'Content-Type': 'application/x-www-form-urlencoded',",
+					"            },",
+					"            body: {",
+					"                mode: 'urlencoded',",
+					"                urlencoded: [",
+					"                    {key: \"client_id\", value: \"client\", disabled: false},",
+					"                    {key: \"grant_type\", value: \"password\", disabled: false},",
+					"                    {key: \"username\", value: pm.environment.get(\"AdminUsername\"), disabled: false},",
+					"                    {key: \"password\", value: pm.environment.get(\"AdminPassword\"), disabled: false}",
+					"                ]",
+					"            }",
+					"        },",
+					"        function (err, res) {",
+					"            pm.environment.set(\"Temp.AdminAccessToken\", res.json().access_token);",
+					"            var now = new Date();",
+					"            var timeout = now.setMinutes(now.getMinutes() + 20);",
+					"            pm.environment.set(\"Temp.AdminAccessToken.Timeout\", timeout);",
+					"        }",
+					"    );",
+					"}",
+					"",
+					"if (!pm.environment.get(\"Temp.CommonAccessToken\") ||",
+					"    pm.environment.get(\"Temp.CommonAccessToken.Timeout\") < Date.now())",
+					"{",
+					"    pm.sendRequest(",
+					"        {",
+					"            url: pm.environment.get(\"IdentityServerUrl\"),",
+					"            method: 'POST',",
+					"            header: {",
+					"                'Content-Type': 'application/x-www-form-urlencoded',",
+					"            },",
+					"            body: {",
+					"                mode: 'urlencoded',",
+					"                urlencoded: [",
+					"                    {key: \"client_id\", value: \"client\", disabled: false},",
+					"                    {key: \"grant_type\", value: \"password\", disabled: false},",
+					"                    {key: \"username\", value: pm.environment.get(\"CommonUsername\"), disabled: false},",
+					"                    {key: \"password\", value: pm.environment.get(\"CommonPassword\"), disabled: false}",
+					"                ]",
+					"            }",
+					"        },",
+					"        function (err, res) {",
+					"            pm.environment.set(\"Temp.CommonAccessToken\", res.json().access_token);",
+					"",
+					"            var now = new Date();",
+					"            var timeout = now.setMinutes(now.getMinutes() + 20);",
+					"            pm.environment.set(\"Temp.CommonAccessToken.Timeout\", timeout);",
+					"        }",
+					"    );",
+					"}",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

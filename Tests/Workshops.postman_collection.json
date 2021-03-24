@@ -1,0 +1,2958 @@
+{
+	"info": {
+		"_postman_id": "890661c6-e9b2-4f60-b94e-5c960b958c18",
+		"name": "Workshops",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create",
+			"item": [
+				{
+					"name": "Authorization",
+					"item": [
+						{
+							"name": "New workshop without token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating workshop without token should return 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Bad request",
+					"item": [
+						{
+							"name": "With empty body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating workshop with empty body should return status 415\", function() {\r",
+											"    pm.response.to.have.status(415);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Without name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating workshop without name should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating workshop without name should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"{{$randomWords}}\",\r\n    \"date\": \"2021-04-22T16:00:00.000\",\r\n    \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With empty name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating workshop with empty name should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating workshop with empty name should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"\",\r\n    \"description\": \"{{$randomWords}}\",\r\n    \"date\": \"2021-04-22T16:00:00.000\",\r\n    \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With name too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating workshop with name too long should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating workshop with name too long should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live t\",\r\n    \"description\": \"{{$randomWords}}\",\r\n    \"date\": \"2021-04-22T16:00:00.000\",\r\n    \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With description too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating workshop with description too long should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating workshop with description too long should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{$randomProductName}}\",\r\n    \"description\": \"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life\",\r\n    \"date\": \"2021-04-22T16:00:00.000\",\r\n    \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Without date",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating workshop without date should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating workshop without date should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{$randomProductName}}\",\r\n    \"description\": \"{{$randomWords}}\",\r\n    \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With empty date",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating workshop with empty date should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating workshop with empty date should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{$randomProductName}}\",\r\n    \"description\": \"{{$randomWords}}\",\r\n    \"date\": \"\",\r\n    \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With date in the past",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating workshop with past date should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating workshop with past date should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{$randomProductName}}\",\r\n    \"description\": \"{{$randomWords}}\",\r\n    \"date\": \"2021-03-22T16:00:00.000\",\r\n    \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With negative price",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating workshop with negative price should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating workshop with negative price should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{$randomProductName}}\",\r\n    \"description\": \"{{$randomWords}}\",\r\n    \"date\": \"2021-04-22T16:00:00.000\",\r\n    \"price\": -10.99\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "New workshop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Creating new workshop should return status code 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"\r",
+									"    pm.test(\"Creating new workshop should return new workshop ID\", function() {\r",
+									"        const response = pm.response.json();\r",
+									"        pm.expect(response).to.have.property('id');\r",
+									"\r",
+									"        const id = response.id;\r",
+									"        pm.expect(id).to.be.above(0);\r",
+									"        \r",
+									"        pm.environment.set('Temp.Create.WorkshopId', id);\r",
+									"        pm.globals.set('Temp.Create.WorkshopRequest', pm.request.body.raw);\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{$randomProductName}}\",\r\n  \"description\": \"{{$randomWords}}\",\r\n  \"date\": \"2021-04-22T16:00:00.000\",\r\n  \"price\": {{$randomPrice}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Created workshop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Created workshop should exist and be accessible\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"\r",
+									"    pm.test(\"Created workshop should have correct values\", function() {\r",
+									"        const req = JSON.parse(pm.globals.get('Temp.Create.WorkshopRequest'));\r",
+									"        const res = pm.response.json();\r",
+									"        \r",
+									"        pm.expect(res.name).to.eql(req.name);\r",
+									"        pm.expect(res.description).to.eql(req.description);\r",
+									"        pm.expect(new Date(res.date)).to.eql(new Date(req.date));\r",
+									"        pm.expect(res.price).to.eql(req.price);\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Create.WorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Create.WorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cleanup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleting workshop should return 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"\r",
+									"    pm.environment.unset('Temp.Create.WorkshopId');\r",
+									"    pm.globals.unset('Temp.Create.WorkshopRequest');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Create.WorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Create.WorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"const badRequestSchema = {",
+							"    \"required\": [\"status\", \"title\", \"errors\"]",
+							"};",
+							"",
+							"pm.globals.set(\"Temp.Create.BadRequestSchema\", badRequestSchema);"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Update",
+			"item": [
+				{
+					"name": "Seed",
+					"item": [
+						{
+							"name": "New admin workshop",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating new workshop should return status code 201\", function() {\r",
+											"    pm.response.to.have.status(201);\r",
+											"\r",
+											"    pm.test(\"Creating new workshop should return new workshop ID\", function() {\r",
+											"        const response = pm.response.json();\r",
+											"        pm.expect(response).to.have.property('id');\r",
+											"\r",
+											"        const id = response.id;\r",
+											"        pm.expect(id).to.be.above(0);\r",
+											"        \r",
+											"        pm.environment.set('Temp.Update.AdminWorkshopId', id);\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomProductName}}\",\r\n  \"description\": \"{{$randomWords}}\",\r\n  \"date\": \"2021-04-22T16:00:00.000\",\r\n  \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New common workshop",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating new workshop should return status code 201\", function() {\r",
+											"    pm.response.to.have.status(201);\r",
+											"\r",
+											"    pm.test(\"Creating new workshop should return new workshop ID\", function() {\r",
+											"        const response = pm.response.json();\r",
+											"        pm.expect(response).to.have.property('id');\r",
+											"\r",
+											"        const id = response.id;\r",
+											"        pm.expect(id).to.be.above(0);\r",
+											"        \r",
+											"        pm.environment.set('Temp.Update.CommonWorkshopId', id);\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Temp.CommonAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomProductName}}\",\r\n  \"description\": \"{{$randomWords}}\",\r\n  \"date\": \"2021-04-22T16:00:00.000\",\r\n  \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Authorization",
+					"item": [
+						{
+							"name": "Admin workshop with common token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating admin workshop with common token should return 403\", function () {\r",
+											"    pm.response.to.have.status(403);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Temp.CommonAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomProductName}}\",\r\n  \"description\": \"{{$randomWords}}\",\r\n  \"date\": \"2021-04-22T16:00:00.000\",\r\n  \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Update.AdminWorkshopId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop",
+										"{{Temp.Update.AdminWorkshopId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Common workshop without token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating common workshop without token should return 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Update.CommonWorkshopId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop",
+										"{{Temp.Update.CommonWorkshopId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Bad request",
+					"item": [
+						{
+							"name": "With empty body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating workshop with empty body should return status 415\", function() {\r",
+											"    pm.response.to.have.status(415);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Update.AdminWorkshopId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop",
+										"{{Temp.Update.AdminWorkshopId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Without name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating workshop without name should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating workshop without name should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Update.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"{{$randomWords}}\",\r\n    \"date\": \"2021-04-22T16:00:00.000\",\r\n    \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Update.AdminWorkshopId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop",
+										"{{Temp.Update.AdminWorkshopId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With empty name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating workshop with empty name should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating workshop with empty name should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"\",\r\n    \"description\": \"{{$randomWords}}\",\r\n    \"date\": \"2021-04-22T16:00:00.000\",\r\n    \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Update.AdminWorkshopId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop",
+										"{{Temp.Update.AdminWorkshopId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With name too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating workshop with name too long should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating workshop with name too long should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live t\",\r\n    \"description\": \"{{$randomWords}}\",\r\n    \"date\": \"2021-04-22T16:00:00.000\",\r\n    \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Update.AdminWorkshopId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop",
+										"{{Temp.Update.AdminWorkshopId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With description too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating workshop with description too long should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating workshop with description too long should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{$randomProductName}}\",\r\n    \"description\": \"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life\",\r\n    \"date\": \"2021-04-22T16:00:00.000\",\r\n    \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Update.AdminWorkshopId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop",
+										"{{Temp.Update.AdminWorkshopId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Without date",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating workshop without date should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating workshop without date should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{$randomProductName}}\",\r\n    \"description\": \"{{$randomWords}}\",\r\n    \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Update.AdminWorkshopId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop",
+										"{{Temp.Update.AdminWorkshopId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With empty date",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating workshop with empty date should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating workshop with empty date should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{$randomProductName}}\",\r\n    \"description\": \"{{$randomWords}}\",\r\n    \"date\": \"\",\r\n    \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Update.AdminWorkshopId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop",
+										"{{Temp.Update.AdminWorkshopId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With date in the past",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating workshop with past date should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating workshop with past date should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{$randomProductName}}\",\r\n    \"description\": \"{{$randomWords}}\",\r\n    \"date\": \"2021-03-22T16:00:00.000\",\r\n    \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Update.AdminWorkshopId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop",
+										"{{Temp.Update.AdminWorkshopId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With negative price",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating workshop with negative price should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating workshop with negative price should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{$randomProductName}}\",\r\n    \"description\": \"{{$randomWords}}\",\r\n    \"date\": \"2021-04-22T16:00:00.000\",\r\n    \"price\": -10.99\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Update.AdminWorkshopId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop",
+										"{{Temp.Update.AdminWorkshopId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Non-existing workshop",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating non-existing workshop should return status code 404\", function() {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomProductName}}\",\r\n  \"description\": \"{{$randomWords}}\",\r\n  \"date\": \"2021-05-22T16:00:00.000\",\r\n  \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop/-1",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop",
+										"-1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Admin workshop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Updating workshop should return status code 201\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.globals.set('Temp.Update.AdminWorkshopRequest', pm.request.body.raw);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{$randomProductName}}\",\r\n  \"description\": \"{{$randomWords}}\",\r\n  \"date\": \"2021-05-22T16:00:00.000\",\r\n  \"price\": {{$randomPrice}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Update.AdminWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Update.AdminWorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Common workshop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Updating workshop should return status code 201\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.globals.set('Temp.Update.CommonWorkshopRequest', pm.request.body.raw);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Temp.CommonAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{$randomProductName}}\",\r\n  \"description\": \"{{$randomWords}}\",\r\n  \"date\": \"2021-05-22T16:00:00.000\",\r\n  \"price\": {{$randomPrice}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Update.CommonWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Update.CommonWorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin workshop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Updated workshop should exist and be accessible\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"\r",
+									"    pm.test(\"Updated workshop should have correct values\", function() {\r",
+									"        const req = JSON.parse(pm.globals.get('Temp.Update.AdminWorkshopRequest'));\r",
+									"        const res = pm.response.json();\r",
+									"        \r",
+									"        pm.expect(res.name).to.eql(req.name);\r",
+									"        pm.expect(res.description).to.eql(req.description);\r",
+									"        pm.expect(new Date(res.date)).to.eql(new Date(req.date));\r",
+									"        pm.expect(res.price).to.eql(req.price);\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Update.AdminWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Update.AdminWorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Common workshop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Updated workshop should exist and be accessible\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"\r",
+									"    pm.test(\"Updated workshop should have correct values\", function() {\r",
+									"        const req = JSON.parse(pm.globals.get('Temp.Update.CommonWorkshopRequest'));\r",
+									"        const res = pm.response.json();\r",
+									"        \r",
+									"        pm.expect(res.name).to.eql(req.name);\r",
+									"        pm.expect(res.description).to.eql(req.description);\r",
+									"        pm.expect(new Date(res.date)).to.eql(new Date(req.date));\r",
+									"        pm.expect(res.price).to.eql(req.price);\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Temp.CommonAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Update.CommonWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Update.CommonWorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin workshop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleting workshop should return 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"\r",
+									"    pm.environment.unset('Temp.Update.AdminWorkshopId');\r",
+									"    pm.globals.unset('Temp.Update.AdminWorkshopRequest');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Update.AdminWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Update.AdminWorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Common workshop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleting workshop should return 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"\r",
+									"    pm.environment.unset('Temp.Update.CommonWorkshopId');\r",
+									"    pm.globals.unset('Temp.Update.CommonWorkshopRequest');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Update.CommonWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Update.CommonWorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"const badRequestSchema = {",
+							"    \"required\": [\"status\", \"title\", \"errors\"]",
+							"};",
+							"",
+							"pm.globals.set(\"Temp.Update.BadRequestSchema\", badRequestSchema);"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Delete",
+			"item": [
+				{
+					"name": "Seed",
+					"item": [
+						{
+							"name": "New admin workshop",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating new workshop should return status code 201\", function() {\r",
+											"    pm.response.to.have.status(201);\r",
+											"\r",
+											"    pm.test(\"Creating new workshop should return new workshop ID\", function() {\r",
+											"        const response = pm.response.json();\r",
+											"        pm.expect(response).to.have.property('id');\r",
+											"\r",
+											"        const id = response.id;\r",
+											"        pm.expect(id).to.be.above(0);\r",
+											"        \r",
+											"        pm.environment.set('Temp.Delete.AdminWorkshopId', id);\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomProductName}}\",\r\n  \"description\": \"{{$randomWords}}\",\r\n  \"date\": \"2021-04-22T16:00:00.000\",\r\n  \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New common workshop",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating new workshop should return status code 201\", function() {\r",
+											"    pm.response.to.have.status(201);\r",
+											"\r",
+											"    pm.test(\"Creating new workshop should return new workshop ID\", function() {\r",
+											"        const response = pm.response.json();\r",
+											"        pm.expect(response).to.have.property('id');\r",
+											"\r",
+											"        const id = response.id;\r",
+											"        pm.expect(id).to.be.above(0);\r",
+											"        \r",
+											"        pm.environment.set('Temp.Delete.CommonWorkshopId', id);\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Temp.CommonAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomProductName}}\",\r\n  \"description\": \"{{$randomWords}}\",\r\n  \"date\": \"2021-04-22T16:00:00.000\",\r\n  \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Authorization",
+					"item": [
+						{
+							"name": "Admin workshop with common token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Deleting admin workshop with common token should return 403\", function () {\r",
+											"    pm.response.to.have.status(403);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Temp.CommonAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Delete.AdminWorkshopId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop",
+										"{{Temp.Delete.AdminWorkshopId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Common workshop without token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Deleting common workshop without token should return 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Delete.CommonWorkshopId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop",
+										"{{Temp.Delete.CommonWorkshopId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Bad request",
+					"item": [
+						{
+							"name": "Non-existing workshop",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Deleting non-existing workshop should return status code 404\", function() {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop/-1",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop",
+										"-1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Admin workshop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleting workshop should return 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Delete.AdminWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Delete.AdminWorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Common workshop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleting workshop should return 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Delete.CommonWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Delete.CommonWorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin workshop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Retrieving deleted workshop should return 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"    pm.environment.unset('Temp.Delete.AdminWorkshopId');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Delete.AdminWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Delete.AdminWorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Common workshop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Retrieving deleted workshop should return 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"    pm.environment.unset('Temp.Delete.CommonWorkshopId');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Temp.CommonAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Delete.CommonWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Delete.CommonWorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Get",
+			"item": [
+				{
+					"name": "Seed",
+					"item": [
+						{
+							"name": "New admin workshop 1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating new workshop should return status code 201\", function() {\r",
+											"    pm.response.to.have.status(201);\r",
+											"\r",
+											"    pm.test(\"Creating new workshop should return new workshop ID\", function() {\r",
+											"        const response = pm.response.json();\r",
+											"        pm.expect(response).to.have.property('id');\r",
+											"\r",
+											"        const id = response.id;\r",
+											"        pm.expect(id).to.be.above(0);\r",
+											"        \r",
+											"        pm.environment.set('Temp.Get.AdminWorkshopId1', id);\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomProductName}}\",\r\n  \"description\": \"{{$randomWords}}\",\r\n  \"date\": \"2021-04-22T16:00:00.000\",\r\n  \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New admin workshop 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating new workshop should return status code 201\", function() {\r",
+											"    pm.response.to.have.status(201);\r",
+											"\r",
+											"    pm.test(\"Creating new workshop should return new workshop ID\", function() {\r",
+											"        const response = pm.response.json();\r",
+											"        pm.expect(response).to.have.property('id');\r",
+											"\r",
+											"        const id = response.id;\r",
+											"        pm.expect(id).to.be.above(0);\r",
+											"        \r",
+											"        pm.environment.set('Temp.Get.AdminWorkshopId2', id);\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomProductName}}\",\r\n  \"description\": \"{{$randomWords}}\",\r\n  \"date\": \"2021-04-22T16:00:00.000\",\r\n  \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New common workshop 1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating new workshop should return status code 201\", function() {\r",
+											"    pm.response.to.have.status(201);\r",
+											"\r",
+											"    pm.test(\"Creating new workshop should return new workshop ID\", function() {\r",
+											"        const response = pm.response.json();\r",
+											"        pm.expect(response).to.have.property('id');\r",
+											"\r",
+											"        const id = response.id;\r",
+											"        pm.expect(id).to.be.above(0);\r",
+											"        \r",
+											"        pm.environment.set('Temp.Get.CommonWorkshopId1', id);\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Temp.CommonAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomProductName}}\",\r\n  \"description\": \"{{$randomWords}}\",\r\n  \"date\": \"2021-04-22T16:00:00.000\",\r\n  \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New common workshop 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating new workshop should return status code 201\", function() {\r",
+											"    pm.response.to.have.status(201);\r",
+											"\r",
+											"    pm.test(\"Creating new workshop should return new workshop ID\", function() {\r",
+											"        const response = pm.response.json();\r",
+											"        pm.expect(response).to.have.property('id');\r",
+											"\r",
+											"        const id = response.id;\r",
+											"        pm.expect(id).to.be.above(0);\r",
+											"        \r",
+											"        pm.environment.set('Temp.Get.CommonWorkshopId2', id);\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Temp.CommonAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomProductName}}\",\r\n  \"description\": \"{{$randomWords}}\",\r\n  \"date\": \"2021-04-22T16:00:00.000\",\r\n  \"price\": {{$randomPrice}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Authorization",
+					"item": [
+						{
+							"name": "Admin workshop with common token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Retrieving admin workshop with common token should return 403\", function() {\r",
+											"    pm.response.to.have.status(403);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Temp.CommonAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Get.AdminWorkshopId1}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop",
+										"{{Temp.Get.AdminWorkshopId1}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Common workshop without token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Retrieving common workshop without token should return 401\", function() {\r",
+											"    pm.response.to.have.status(401);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Get.CommonWorkshopId1}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop",
+										"{{Temp.Get.CommonWorkshopId1}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Bad request",
+					"item": [
+						{
+							"name": "Non-existing workshop",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Retrieving non-existing workshop should return 404\", function() {\r",
+											"    pm.response.to.have.status(404);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshops/-1",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshops",
+										"-1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "All workshops by common user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Retrieving all workshops with common user should return 403\", function() {\r",
+											"    pm.response.to.have.status(403);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Temp.CommonAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Foreign workshop with common user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Retrieving foreign workshop with common user should return 403\", function() {\r",
+											"    pm.response.to.have.status(403);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Temp.CommonAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Get.AdminWorkshopId1}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop",
+										"{{Temp.Get.AdminWorkshopId1}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get all",
+					"item": [
+						{
+							"name": "All workshops",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Retrieving all workshops should return 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"    pm.response.to.be.json;\r",
+											"\r",
+											"    const res = pm.response.json();\r",
+											"    pm.test(\"Retrieving all workshops should return an array\", function () {\r",
+											"        pm.expect(res).to.be.an('array');\r",
+											"\r",
+											"        pm.test(\"Retrieving admin workshops should return correct number of elements\", function () {\r",
+											"            pm.expect(res).to.have.length.least(4);\r",
+											"        })\r",
+											"\r",
+											"        pm.test(\"Retrieving all workshops should return values in correct format\", function () {\r",
+											"            _.each(res, (workshop) => {\r",
+											"                pm.expect(tv4.validate(workshop, pm.globals.get(\"Temp.Get.WorkshopHeaderSchema\"))).to.be.true;\r",
+											"            });\r",
+											"        })\r",
+											"\r",
+											"        pm.test(\"Retrieving all workshops should return correct values\", function () {\r",
+											"            var expectedIds = [\r",
+											"                pm.environment.get(\"Temp.Get.AdminWorkshopId1\"),\r",
+											"                pm.environment.get(\"Temp.Get.AdminWorkshopId2\"),\r",
+											"                pm.environment.get(\"Temp.Get.CommonWorkshopId1\"),\r",
+											"                pm.environment.get(\"Temp.Get.CommonWorkshopId2\")\r",
+											"            ]\r",
+											"\r",
+											"            _.each(res, (workshop) => {\r",
+											"                expectedIds = expectedIds.filter(function(x) { return x !== workshop.id });\r",
+											"            });\r",
+											"\r",
+											"            pm.expect(expectedIds).to.be.length(0);\r",
+											"        })\r",
+											"    })\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin workshops",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Retrieving admin workshops should return 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"    pm.response.to.be.json;\r",
+											"\r",
+											"    const res = pm.response.json();\r",
+											"    pm.test(\"Retrieving admin workshops should return an array\", function () {\r",
+											"        pm.expect(res).to.be.an('array');\r",
+											"\r",
+											"        pm.test(\"Retrieving admin workshops should return correct number of elements\", function () {\r",
+											"            pm.expect(res).to.have.length.least(2);\r",
+											"        })\r",
+											"\r",
+											"        pm.test(\"Retrieving admin workshops should return values in correct format\", function () {\r",
+											"            _.each(res, (workshop) => {\r",
+											"                pm.expect(tv4.validate(workshop, pm.globals.get(\"Temp.Get.WorkshopHeaderSchema\"))).to.be.true;\r",
+											"            });\r",
+											"        })\r",
+											"\r",
+											"        pm.test(\"Retrieving admin workshops should return correct values\", function () {\r",
+											"            var expectedIds = [\r",
+											"                pm.environment.get(\"Temp.Get.AdminWorkshopId1\"),\r",
+											"                pm.environment.get(\"Temp.Get.AdminWorkshopId2\")\r",
+											"            ]\r",
+											"\r",
+											"            _.each(res, (workshop) => {\r",
+											"                expectedIds = expectedIds.filter(function(x) { return x !== workshop.id });\r",
+											"            });\r",
+											"\r",
+											"            pm.expect(expectedIds).to.be.length(0);\r",
+											"        })\r",
+											"    })\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop/mine",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop",
+										"mine"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Common user workshops",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Retrieving common user workshops should return 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"    pm.response.to.be.json;\r",
+											"\r",
+											"    const res = pm.response.json();\r",
+											"    pm.test(\"Retrieving common user workshops should return an array\", function () {\r",
+											"        pm.expect(res).to.be.an('array');\r",
+											"\r",
+											"        pm.test(\"Retrieving common user workshops should return correct number of elements\", function () {\r",
+											"            pm.expect(res).to.have.length(2);\r",
+											"        })\r",
+											"\r",
+											"        pm.test(\"Retrieving common user workshops should return values in correct format\", function () {\r",
+											"            _.each(res, (workshop) => {\r",
+											"                pm.expect(tv4.validate(workshop, pm.globals.get(\"Temp.Get.WorkshopHeaderSchema\"))).to.be.true;\r",
+											"            });\r",
+											"        })\r",
+											"\r",
+											"        pm.test(\"Retrieving common user workshops should return correct values\", function () {\r",
+											"            var expectedIds = [\r",
+											"                pm.environment.get(\"Temp.Get.CommonWorkshopId1\"),\r",
+											"                pm.environment.get(\"Temp.Get.CommonWorkshopId2\")\r",
+											"            ]\r",
+											"\r",
+											"            _.each(res, (workshop) => {\r",
+											"                expectedIds = expectedIds.filter(function(x) { return x !== workshop.id });\r",
+											"            });\r",
+											"\r",
+											"            pm.expect(expectedIds).to.be.length(0);\r",
+											"        })\r",
+											"    })\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Temp.CommonAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/workshop/mine",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"workshop",
+										"mine"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Workshop",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Retrieving workshop should return 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"\r",
+									"    const res = pm.response.json();\r",
+									"    pm.test(\"Retrieving workshop should return an object\", function () {\r",
+									"        pm.expect(res).to.be.an('object');\r",
+									"\r",
+									"        pm.test(\"Retrieving workshop should return value in correct format\", function () {\r",
+									"            pm.expect(tv4.validate(res, pm.globals.get(\"Temp.Get.WorkshopSchema\"))).to.be.true;\r",
+									"        })\r",
+									"\r",
+									"        pm.test(\"Retrieving workshop should return correct value\", function () {\r",
+									"            pm.expect(res.id).to.eql(pm.environment.get('Temp.Get.AdminWorkshopId1'));\r",
+									"        })\r",
+									"    })\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Get.AdminWorkshopId1}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Get.AdminWorkshopId1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Foreign workshop with admin",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Retrieving workshop should return 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"\r",
+									"    const res = pm.response.json();\r",
+									"    pm.test(\"Retrieving workshop should return an object\", function () {\r",
+									"        pm.expect(res).to.be.an('object');\r",
+									"\r",
+									"        pm.test(\"Retrieving workshop should return value in correct format\", function () {\r",
+									"            pm.expect(tv4.validate(res, pm.globals.get(\"Temp.Get.WorkshopSchema\"))).to.be.true;\r",
+									"        })\r",
+									"\r",
+									"        pm.test(\"Retrieving workshop should return correct value\", function () {\r",
+									"            pm.expect(res.id).to.eql(pm.environment.get('Temp.Get.CommonWorkshopId1'));\r",
+									"        })\r",
+									"    })\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Get.CommonWorkshopId1}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Get.CommonWorkshopId1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Seeded workshop 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleting workshop should return status 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"    pm.environment.unset('Temp.Get.AdminWorkshopId1');\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Get.AdminWorkshopId1}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Get.AdminWorkshopId1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Seeded workshop 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleting workshop should return status 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"    pm.environment.unset('Temp.Get.AdminWorkshopId2');\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Get.AdminWorkshopId2}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Get.AdminWorkshopId2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Seeded workshop 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleting workshop should return status 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"    pm.environment.unset('Temp.Get.CommonWorkshopId1');\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Get.CommonWorkshopId1}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Get.CommonWorkshopId1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Seeded workshop 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleting workshop should return status 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"    pm.environment.unset('Temp.Get.CommonWorkshopId2');\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Get.CommonWorkshopId2}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Get.CommonWorkshopId2}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"const workshopHeader = {",
+							"    \"required\": [\"id\", \"name\", \"date\", \"price\"],",
+							"    \"properties\": {",
+							"        \"id\": {\"type\": \"integer\"},",
+							"        \"name\": {\"type\": \"string\"},",
+							"        \"date\": {\"type\": \"string\"},",
+							"        \"price\": {\"type\": \"number\"}",
+							"    }",
+							"};",
+							"",
+							"const workshop = {",
+							"    \"required\": [\"id\", \"name\", \"date\", \"price\"],",
+							"    \"properties\": {",
+							"        \"id\": {\"type\": \"integer\"},",
+							"        \"description\": {\"type\": \"string\"},",
+							"        \"name\": {\"type\": \"string\"},",
+							"        \"date\": {\"type\": \"string\"},",
+							"        \"price\": {\"type\": \"number\"},",
+							"        \"attendeesCount\": {\"type\": \"integer\"}",
+							"    }",
+							"};",
+							"",
+							"pm.globals.set(\"Temp.Get.WorkshopHeaderSchema\", workshopHeader);",
+							"pm.globals.set(\"Temp.Get.WorkshopSchema\", workshop);"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Cleanup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Running clenup request should return 404\", function() {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function cleanup() {\r",
+							"    const cleanEnv = _.keys(pm.environment.toObject())\r",
+							"    _.each(cleanEnv, (arrItem) => {\r",
+							"        if (arrItem.startsWith(\"Temp.\")) {\r",
+							"            pm.environment.unset(arrItem)\r",
+							"        }\r",
+							"    })\r",
+							"\r",
+							"    const cleanVar = _.keys(pm.globals.toObject())\r",
+							"    _.each(cleanVar, (arrItem) => {\r",
+							"        if (arrItem.startsWith(\"Temp.\")) {\r",
+							"            pm.globals.unset(arrItem)\r",
+							"        }\r",
+							"    })\r",
+							"}\r",
+							"\r",
+							"cleanup();"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "CLEAN",
+				"header": [],
+				"url": {
+					"raw": "{{ApiBaseUrl}}",
+					"host": [
+						"{{ApiBaseUrl}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{Temp.AdminAccessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"if (!pm.environment.get(\"Temp.AdminAccessToken\") ||",
+					"    pm.environment.get(\"Temp.AdminAccessToken.Timeout\") < Date.now())",
+					"{",
+					"    pm.sendRequest(",
+					"        {",
+					"            url: pm.environment.get(\"IdentityServerUrl\"),",
+					"            method: 'POST',",
+					"            header: {",
+					"                'Content-Type': 'application/x-www-form-urlencoded',",
+					"            },",
+					"            body: {",
+					"                mode: 'urlencoded',",
+					"                urlencoded: [",
+					"                    {key: \"client_id\", value: \"client\", disabled: false},",
+					"                    {key: \"grant_type\", value: \"password\", disabled: false},",
+					"                    {key: \"username\", value: pm.environment.get(\"AdminUsername\"), disabled: false},",
+					"                    {key: \"password\", value: pm.environment.get(\"AdminPassword\"), disabled: false}",
+					"                ]",
+					"            }",
+					"        },",
+					"        function (err, res) {",
+					"            pm.environment.set(\"Temp.AdminAccessToken\", res.json().access_token);",
+					"            var now = new Date();",
+					"            var timeout = now.setMinutes(now.getMinutes() + 20);",
+					"            pm.environment.set(\"Temp.AdminAccessToken.Timeout\", timeout);",
+					"        }",
+					"    );",
+					"}",
+					"",
+					"if (!pm.environment.get(\"Temp.CommonAccessToken\") ||",
+					"    pm.environment.get(\"Temp.CommonAccessToken.Timeout\") < Date.now())",
+					"{",
+					"    pm.sendRequest(",
+					"        {",
+					"            url: pm.environment.get(\"IdentityServerUrl\"),",
+					"            method: 'POST',",
+					"            header: {",
+					"                'Content-Type': 'application/x-www-form-urlencoded',",
+					"            },",
+					"            body: {",
+					"                mode: 'urlencoded',",
+					"                urlencoded: [",
+					"                    {key: \"client_id\", value: \"client\", disabled: false},",
+					"                    {key: \"grant_type\", value: \"password\", disabled: false},",
+					"                    {key: \"username\", value: pm.environment.get(\"CommonUsername\"), disabled: false},",
+					"                    {key: \"password\", value: pm.environment.get(\"CommonPassword\"), disabled: false}",
+					"                ]",
+					"            }",
+					"        },",
+					"        function (err, res) {",
+					"            pm.environment.set(\"Temp.CommonAccessToken\", res.json().access_token);",
+					"",
+					"            var now = new Date();",
+					"            var timeout = now.setMinutes(now.getMinutes() + 20);",
+					"            pm.environment.set(\"Temp.CommonAccessToken.Timeout\", timeout);",
+					"        }",
+					"    );",
+					"}",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

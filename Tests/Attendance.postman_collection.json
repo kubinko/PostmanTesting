@@ -1,0 +1,2038 @@
+{
+	"info": {
+		"_postman_id": "50af2956-526a-4a5c-b8bd-7c6a7d31ca59",
+		"name": "Attendance",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Seed",
+			"item": [
+				{
+					"name": "Admin workshop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Creating new workshop should return status code 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"\r",
+									"    pm.test(\"Creating new workshop should return new workshop ID\", function() {\r",
+									"        const response = pm.response.json();\r",
+									"        pm.expect(response).to.have.property('id');\r",
+									"\r",
+									"        const id = response.id;\r",
+									"        pm.expect(id).to.be.above(0);\r",
+									"        \r",
+									"        pm.environment.set('Temp.Attendance.AdminWorkshopId', id);\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{$randomProductName}}\",\r\n  \"description\": \"{{$randomWords}}\",\r\n  \"date\": \"2021-04-22T16:00:00.000\",\r\n  \"price\": {{$randomPrice}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Common workshop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Creating new workshop should return status code 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"\r",
+									"    pm.test(\"Creating new workshop should return new workshop ID\", function() {\r",
+									"        const response = pm.response.json();\r",
+									"        pm.expect(response).to.have.property('id');\r",
+									"\r",
+									"        const id = response.id;\r",
+									"        pm.expect(id).to.be.above(0);\r",
+									"        \r",
+									"        pm.environment.set('Temp.Attendance.CommonWorkshopId', id);\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Temp.CommonAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{$randomProductName}}\",\r\n  \"description\": \"{{$randomWords}}\",\r\n  \"date\": \"2021-04-22T16:00:00.000\",\r\n  \"price\": {{$randomPrice}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Creating new person should return status code 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"\r",
+									"    pm.test(\"Creating new person should return new person ID\", function() {\r",
+									"        const response = pm.response.json();\r",
+									"        pm.expect(response).to.have.property('id');\r",
+									"\r",
+									"        const id = response.id;\r",
+									"        pm.expect(id).to.be.above(0);\r",
+									"        \r",
+									"        pm.environment.set('Temp.Attendance.AdminPersonId', id);\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Common person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Creating new person should return status code 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"\r",
+									"    pm.test(\"Creating new person should return new person ID\", function() {\r",
+									"        const response = pm.response.json();\r",
+									"        pm.expect(response).to.have.property('id');\r",
+									"\r",
+									"        const id = response.id;\r",
+									"        pm.expect(id).to.be.above(0);\r",
+									"        \r",
+									"        pm.environment.set('Temp.Attendance.CommonPersonId', id);\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Temp.CommonAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bad Request",
+			"item": [
+				{
+					"name": "With empty body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Adding attendee with empty request should return status 415\", function() {\r",
+									"    pm.response.to.have.status(415);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Without workshop ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Adding attendee without workshop ID should return status 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"\r",
+									"    pm.test(\"Adding attendee without workshop ID should return error in expected format\", function () {\r",
+									"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Attendance.BadRequestSchema\"))).to.be.true;\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"personId\": {{Temp.Attendance.AdminPersonId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Without zero workshop ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Adding attendee with zero workshop ID should return status 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"\r",
+									"    pm.test(\"Adding attendee with zero workshop ID should return error in expected format\", function () {\r",
+									"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Attendance.BadRequestSchema\"))).to.be.true;\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workshopId\": 0,\r\n    \"personId\": {{Temp.Attendance.AdminPersonId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Without person ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Adding attendee without person ID should return status 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"\r",
+									"    pm.test(\"Adding attendee without person ID should return error in expected format\", function () {\r",
+									"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Attendance.BadRequestSchema\"))).to.be.true;\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workshopId\": {{Temp.Attendance.AdminWorkshopId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "With zero person ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Adding attendee with zero person ID should return status 400\", function() {\r",
+									"    pm.response.to.have.status(400);\r",
+									"\r",
+									"    pm.test(\"Adding attendee with zero person ID should return error in expected format\", function () {\r",
+									"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Attendance.BadRequestSchema\"))).to.be.true;\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workshopId\": {{Temp.Attendance.AdminWorkshopId}},\r\n    \"personId\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "With non-existing workshop ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Adding attendee with non-existing workshop ID should return status 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workshopId\": -1,\r\n    \"personId\": {{Temp.Attendance.AdminPersonId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "With non-existing person ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Adding attendee with non-existing person ID should return status 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workshopId\": {{Temp.Attendance.AdminWorkshopId}},\r\n    \"personId\": -1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"const badRequestSchema = {",
+							"    \"required\": [\"status\", \"title\", \"errors\"]",
+							"};",
+							"",
+							"pm.globals.set(\"Temp.Attendance.BadRequestSchema\", badRequestSchema);"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "With foreign workshop ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Adding attendee with foreign workshop ID should return status 403\", function() {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Temp.CommonAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workshopId\": {{Temp.Attendance.AdminWorkshopId}},\r\n    \"personId\": {{Temp.Attendance.CommonPersonId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "With foreign person ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Adding attendee with foreign person ID should return status 403\", function() {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Temp.CommonAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workshopId\": {{Temp.Attendance.CommonWorkshopId}},\r\n    \"personId\": {{Temp.Attendance.AdminPersonId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Add attendees",
+			"item": [
+				{
+					"name": "Add attendee 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Adding attendee should return status 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workshopId\": {{Temp.Attendance.AdminWorkshopId}},\r\n    \"personId\": {{Temp.Attendance.AdminPersonId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add attendee 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Adding attendee should return status 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workshopId\": {{Temp.Attendance.AdminWorkshopId}},\r\n    \"personId\": {{Temp.Attendance.CommonPersonId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add attendee 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Adding attendee should return status 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Temp.CommonAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workshopId\": {{Temp.Attendance.CommonWorkshopId}},\r\n    \"personId\": {{Temp.Attendance.CommonPersonId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add attendee twice",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Adding attendee twice to same workshop should return status 409\", function() {\r",
+									"    pm.response.to.have.status(409);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Temp.CommonAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workshopId\": {{Temp.Attendance.CommonWorkshopId}},\r\n    \"personId\": {{Temp.Attendance.CommonPersonId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Check - Bad Request",
+			"item": [
+				{
+					"name": "Foreign workshop attendees",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Checking foreign workshop attendees should return status 403\", function() {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Temp.CommonAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance/attendees/{{Temp.Attendance.AdminWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance",
+								"attendees",
+								"{{Temp.Attendance.AdminWorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Foreign person workshops",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Checking foreign person workshops should return status 403\", function() {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Temp.CommonAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance/workshops/{{Temp.Attendance.AdminPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance",
+								"workshops",
+								"{{Temp.Attendance.AdminPersonId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Check",
+			"item": [
+				{
+					"name": "Admin workshop attendees",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Checking workshop attendees should return status 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"\r",
+									"    const res = pm.response.json();\r",
+									"    pm.test(\"Checking workshop attendees should return array\", function() {\r",
+									"        pm.expect(res).to.be.an('array');\r",
+									"\r",
+									"        pm.test(\"Checking workshop attendees should return correct number of attendees\", function () {\r",
+									"            pm.expect(res.length).to.eql(2);\r",
+									"        })\r",
+									"\r",
+									"        pm.test(\"Checking workshop attendees should return values in expected format\", function() {\r",
+									"            _.each(res, (attendee) => {\r",
+									"                pm.expect(tv4.validate(attendee, pm.globals.get('Temp.Attendance.PersonHeaderSchema'))).to.be.true;\r",
+									"            });\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Checking workshop attendees should contain expected attendees\", function() {\r",
+									"            var expectedIds = [\r",
+									"                pm.environment.get(\"Temp.Attendance.AdminPersonId\"),\r",
+									"                pm.environment.get(\"Temp.Attendance.CommonPersonId\")\r",
+									"            ]\r",
+									"\r",
+									"            _.each(res, (attendee) => {\r",
+									"                expectedIds = expectedIds.filter(function(x) { return x !== attendee.id });\r",
+									"            });\r",
+									"\r",
+									"            pm.expect(expectedIds).to.be.length(0);\r",
+									"        });\r",
+									"    });    \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance/attendees/{{Temp.Attendance.AdminWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance",
+								"attendees",
+								"{{Temp.Attendance.AdminWorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Common workshop attendees",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Checking workshop attendees should return status 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"\r",
+									"    const res = pm.response.json();\r",
+									"    pm.test(\"Checking workshop attendees should return array\", function() {\r",
+									"        pm.expect(res).to.be.an('array');\r",
+									"\r",
+									"        pm.test(\"Checking workshop attendees should return correct number of attendees\", function () {\r",
+									"            pm.expect(res.length).to.eql(1);\r",
+									"        })\r",
+									"\r",
+									"        pm.test(\"Checking workshop attendees should return values in expected format\", function() {\r",
+									"            _.each(res, (attendee) => {\r",
+									"                pm.expect(tv4.validate(attendee, pm.globals.get('Temp.Attendance.PersonHeaderSchema'))).to.be.true;\r",
+									"            });\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Checking workshop attendees should contain expected attendees\", function() {\r",
+									"            var expectedIds = [\r",
+									"                pm.environment.get(\"Temp.Attendance.CommonPersonId\")\r",
+									"            ]\r",
+									"\r",
+									"            _.each(res, (attendee) => {\r",
+									"                expectedIds = expectedIds.filter(function(x) { return x !== attendee.id });\r",
+									"            });\r",
+									"\r",
+									"            pm.expect(expectedIds).to.be.length(0);\r",
+									"        });\r",
+									"    });    \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance/attendees/{{Temp.Attendance.CommonWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance",
+								"attendees",
+								"{{Temp.Attendance.CommonWorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin person workshops",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Checking person workshops should return status 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"    \r",
+									"    const res = pm.response.json();\r",
+									"    pm.test(\"Checking person workshops should return array\", function() {\r",
+									"        pm.expect(res).to.be.an('array');\r",
+									"\r",
+									"        pm.test(\"Checking person workshops should return correct number of workshops\", function () {\r",
+									"            pm.expect(res.length).to.eql(1);\r",
+									"        })\r",
+									"\r",
+									"        pm.test(\"Checking person workshops should return values in expected format\", function() {\r",
+									"            _.each(res, (workshop) => {\r",
+									"                pm.expect(tv4.validate(workshop, pm.globals.get('Temp.Attendance.WorkshopHeaderSchema'))).to.be.true;\r",
+									"            });\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Checking person workshops should contain expected workshops\", function() {\r",
+									"            var expectedIds = [\r",
+									"                pm.environment.get(\"Temp.Attendance.AdminWorkshopId\")\r",
+									"            ]\r",
+									"\r",
+									"            _.each(res, (workshop) => {\r",
+									"                expectedIds = expectedIds.filter(function(x) { return x !== workshop.id });\r",
+									"            });\r",
+									"\r",
+									"            pm.expect(expectedIds).to.be.length(0);\r",
+									"        });\r",
+									"    });    \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance/workshops/{{Temp.Attendance.AdminPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance",
+								"workshops",
+								"{{Temp.Attendance.AdminPersonId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Common person workshops",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Checking person workshops should return status 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"\r",
+									"    const res = pm.response.json();\r",
+									"    pm.test(\"Checking person workshops should return array\", function() {\r",
+									"        pm.expect(res).to.be.an('array');\r",
+									"\r",
+									"        pm.test(\"Checking person workshops should return correct number of workshops\", function () {\r",
+									"            pm.expect(res.length).to.eql(2);\r",
+									"        })\r",
+									"\r",
+									"        pm.test(\"Checking person workshops should return values in expected format\", function() {\r",
+									"            _.each(res, (workshop) => {\r",
+									"                pm.expect(tv4.validate(workshop, pm.globals.get('Temp.Attendance.WorkshopHeaderSchema'))).to.be.true;\r",
+									"            });\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Checking person workshops should contain expected workshops\", function() {\r",
+									"            var expectedIds = [\r",
+									"                pm.environment.get(\"Temp.Attendance.AdminWorkshopId\"),\r",
+									"                pm.environment.get(\"Temp.Attendance.CommonWorkshopId\")\r",
+									"            ]\r",
+									"\r",
+									"            _.each(res, (workshop) => {\r",
+									"                expectedIds = expectedIds.filter(function(x) { return x !== workshop.id });\r",
+									"            });\r",
+									"\r",
+									"            pm.expect(expectedIds).to.be.length(0);\r",
+									"        });\r",
+									"    });    \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance/workshops/{{Temp.Attendance.CommonPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance",
+								"workshops",
+								"{{Temp.Attendance.CommonPersonId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin workshop attendees count",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Admin workshop should exist\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"\r",
+									"    const res = pm.response.json();\r",
+									"    pm.test(\"Admin workshop should have correct number of attendees\", function() {\r",
+									"        pm.expect(res.attendeesCount).to.eql(2);\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Attendance.AdminWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Attendance.AdminWorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Common workshop attendees count",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Common workshop should exist\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"\r",
+									"    const res = pm.response.json();\r",
+									"    pm.test(\"Common workshop should have correct number of attendees\", function() {\r",
+									"        pm.expect(res.attendeesCount).to.eql(1);\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Attendance.CommonWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Attendance.CommonWorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"const personHeader = {",
+							"    \"required\": [\"id\", \"name\", \"surname\", \"email\"],",
+							"    \"properties\": {",
+							"        \"id\": {\"type\": \"integer\"},",
+							"        \"name\": {\"type\": \"string\"},",
+							"        \"surname\": {\"type\": \"string\"},",
+							"        \"email\": {\"type\": \"string\"}",
+							"    }",
+							"};",
+							"pm.globals.set(\"Temp.Attendance.PersonHeaderSchema\", personHeader);",
+							"",
+							"const workshopHeader = {",
+							"    \"required\": [\"id\", \"name\", \"date\", \"price\"],",
+							"    \"properties\": {",
+							"        \"id\": {\"type\": \"integer\"},",
+							"        \"name\": {\"type\": \"string\"},",
+							"        \"date\": {\"type\": \"string\"},",
+							"        \"price\": {\"type\": \"number\"}",
+							"    }",
+							"};",
+							"pm.globals.set(\"Temp.Attendance.WorkshopHeaderSchema\", workshopHeader);"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Remove - bad request",
+			"item": [
+				{
+					"name": "From foreign workshop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Removing attendee from foreign workshop should return 403\", function() {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Temp.CommonAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workshopId\": {{Temp.Attendance.AdminWorkshopId}},\r\n    \"personId\": {{Temp.Attendance.CommonPersonId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "From non-existing workshop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Removing attendee from non-existing workshop should return 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workshopId\": -1,\r\n    \"personId\": {{Temp.Attendance.CommonPersonId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non-existing attendee",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Removing  non-existing attendee from workshop should return 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workshopId\": {{Temp.Attendance.AdminWorkshopId}},\r\n    \"personId\": -1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Remove",
+			"item": [
+				{
+					"name": "Attendee from workshop they are not on",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Removing attendee from workshop they are not on should return 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workshopId\": {{Temp.Attendance.CommonWorkshopId}},\r\n    \"personId\": {{Temp.Attendance.AdminPersonId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Attendee from workshop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Removing attendee from workshop should return 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workshopId\": {{Temp.Attendance.AdminWorkshopId}},\r\n    \"personId\": {{Temp.Attendance.CommonPersonId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check workshop attendees",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Checking workshop attendees should return status 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"\r",
+									"    const res = pm.response.json();\r",
+									"    pm.test(\"Checking workshop attendees should return array\", function() {\r",
+									"        pm.expect(res).to.be.an('array');\r",
+									"\r",
+									"        pm.test(\"Checking workshop attendees should return correct number of attendees\", function () {\r",
+									"            pm.expect(res.length).to.eql(1);\r",
+									"        })\r",
+									"\r",
+									"        pm.test(\"Checking workshop attendees should return values in expected format\", function() {\r",
+									"            _.each(res, (attendee) => {\r",
+									"                pm.expect(tv4.validate(attendee, pm.globals.get('Temp.Attendance.PersonHeaderSchema'))).to.be.true;\r",
+									"            });\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Checking workshop attendees should contain expected attendees\", function() {\r",
+									"            var expectedIds = [\r",
+									"                pm.environment.get(\"Temp.Attendance.AdminPersonId\")\r",
+									"            ]\r",
+									"\r",
+									"            _.each(res, (attendee) => {\r",
+									"                expectedIds = expectedIds.filter(function(x) { return x !== attendee.id });\r",
+									"            });\r",
+									"\r",
+									"            pm.expect(expectedIds).to.be.length(0);\r",
+									"        });\r",
+									"    });    \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance/attendees/{{Temp.Attendance.AdminWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance",
+								"attendees",
+								"{{Temp.Attendance.AdminWorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check common person workshops",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Checking person workshops should return status 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"\r",
+									"    const res = pm.response.json();\r",
+									"    pm.test(\"Checking person workshops should return array\", function() {\r",
+									"        pm.expect(res).to.be.an('array');\r",
+									"\r",
+									"        pm.test(\"Checking person workshops should return correct number of workshops\", function () {\r",
+									"            pm.expect(res.length).to.eql(1);\r",
+									"        })\r",
+									"\r",
+									"        pm.test(\"Checking person workshops should return values in expected format\", function() {\r",
+									"            _.each(res, (workshop) => {\r",
+									"                pm.expect(tv4.validate(workshop, pm.globals.get('Temp.Attendance.WorkshopHeaderSchema'))).to.be.true;\r",
+									"            });\r",
+									"        });\r",
+									"\r",
+									"        pm.test(\"Checking person workshops should contain expected workshops\", function() {\r",
+									"            var expectedIds = [\r",
+									"                pm.environment.get(\"Temp.Attendance.CommonWorkshopId\")\r",
+									"            ]\r",
+									"\r",
+									"            _.each(res, (workshop) => {\r",
+									"                expectedIds = expectedIds.filter(function(x) { return x !== workshop.id });\r",
+									"            });\r",
+									"\r",
+									"            pm.expect(expectedIds).to.be.length(0);\r",
+									"        });\r",
+									"    });    \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance/workshops/{{Temp.Attendance.CommonPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance",
+								"workshops",
+								"{{Temp.Attendance.CommonPersonId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin workshop attendees count",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Admin workshop should exist\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"\r",
+									"    const res = pm.response.json();\r",
+									"    pm.test(\"Admin workshop should have correct number of attendees\", function() {\r",
+									"        pm.expect(res.attendeesCount).to.eql(1);\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Attendance.AdminWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Attendance.AdminWorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Common workshop attendees count",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Common workshop should exist\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"\r",
+									"    const res = pm.response.json();\r",
+									"    pm.test(\"Common workshop should have correct number of attendees\", function() {\r",
+									"        pm.expect(res.attendeesCount).to.eql(0);\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Attendance.CommonWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Attendance.CommonWorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cleanup",
+			"item": [
+				{
+					"name": "Attendee 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Removing attendee from workshop should return 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workshopId\": {{Temp.Attendance.AdminWorkshopId}},\r\n    \"personId\": {{Temp.Attendance.AdminPersonId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Attendee 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Removing attendee from workshop should return 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"workshopId\": {{Temp.Attendance.CommonWorkshopId}},\r\n    \"personId\": {{Temp.Attendance.CommonPersonId}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin workshop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleting workshop should return 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Attendance.AdminWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Attendance.AdminWorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Common workshop",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleting workshop should return 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Attendance.CommonWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Attendance.CommonWorkshopId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleting person should return 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people/{{Temp.Attendance.AdminPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people",
+								"{{Temp.Attendance.AdminPersonId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Common person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleting person should return 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people/{{Temp.Attendance.CommonPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people",
+								"{{Temp.Attendance.CommonPersonId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cleanup",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function cleanup() {\r",
+							"    const cleanEnv = _.keys(pm.environment.toObject())\r",
+							"    _.each(cleanEnv, (arrItem) => {\r",
+							"        if (arrItem.startsWith(\"Temp.\")) {\r",
+							"            pm.environment.unset(arrItem)\r",
+							"        }\r",
+							"    })\r",
+							"\r",
+							"    const cleanVar = _.keys(pm.globals.toObject())\r",
+							"    _.each(cleanVar, (arrItem) => {\r",
+							"        if (arrItem.startsWith(\"Temp.\")) {\r",
+							"            pm.globals.unset(arrItem)\r",
+							"        }\r",
+							"    })\r",
+							"}\r",
+							"\r",
+							"cleanup();"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Running clenup request should return 404\", function() {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "CLEAN",
+				"header": [],
+				"url": {
+					"raw": "{{ApiBaseUrl}}",
+					"host": [
+						"{{ApiBaseUrl}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{Temp.AdminAccessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"if (!pm.environment.get(\"Temp.AdminAccessToken\") ||",
+					"    pm.environment.get(\"Temp.AdminAccessToken.Timeout\") < Date.now())",
+					"{",
+					"    pm.sendRequest(",
+					"        {",
+					"            url: pm.environment.get(\"IdentityServerUrl\"),",
+					"            method: 'POST',",
+					"            header: {",
+					"                'Content-Type': 'application/x-www-form-urlencoded',",
+					"            },",
+					"            body: {",
+					"                mode: 'urlencoded',",
+					"                urlencoded: [",
+					"                    {key: \"client_id\", value: \"client\", disabled: false},",
+					"                    {key: \"grant_type\", value: \"password\", disabled: false},",
+					"                    {key: \"username\", value: pm.environment.get(\"AdminUsername\"), disabled: false},",
+					"                    {key: \"password\", value: pm.environment.get(\"AdminPassword\"), disabled: false}",
+					"                ]",
+					"            }",
+					"        },",
+					"        function (err, res) {",
+					"            pm.environment.set(\"Temp.AdminAccessToken\", res.json().access_token);",
+					"            var now = new Date();",
+					"            var timeout = now.setMinutes(now.getMinutes() + 20);",
+					"            pm.environment.set(\"Temp.AdminAccessToken.Timeout\", timeout);",
+					"        }",
+					"    );",
+					"}",
+					"",
+					"if (!pm.environment.get(\"Temp.CommonAccessToken\") ||",
+					"    pm.environment.get(\"Temp.CommonAccessToken.Timeout\") < Date.now())",
+					"{",
+					"    pm.sendRequest(",
+					"        {",
+					"            url: pm.environment.get(\"IdentityServerUrl\"),",
+					"            method: 'POST',",
+					"            header: {",
+					"                'Content-Type': 'application/x-www-form-urlencoded',",
+					"            },",
+					"            body: {",
+					"                mode: 'urlencoded',",
+					"                urlencoded: [",
+					"                    {key: \"client_id\", value: \"client\", disabled: false},",
+					"                    {key: \"grant_type\", value: \"password\", disabled: false},",
+					"                    {key: \"username\", value: pm.environment.get(\"CommonUsername\"), disabled: false},",
+					"                    {key: \"password\", value: pm.environment.get(\"CommonPassword\"), disabled: false}",
+					"                ]",
+					"            }",
+					"        },",
+					"        function (err, res) {",
+					"            pm.environment.set(\"Temp.CommonAccessToken\", res.json().access_token);",
+					"",
+					"            var now = new Date();",
+					"            var timeout = now.setMinutes(now.getMinutes() + 20);",
+					"            pm.environment.set(\"Temp.CommonAccessToken.Timeout\", timeout);",
+					"        }",
+					"    );",
+					"}",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

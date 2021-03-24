@@ -1,0 +1,3181 @@
+{
+	"info": {
+		"_postman_id": "ff3a7345-bd88-4dd1-9855-22483e77fc9f",
+		"name": "People",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create",
+			"item": [
+				{
+					"name": "Authorization",
+					"item": [
+						{
+							"name": "New person without token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating person without token should return 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Bad request",
+					"item": [
+						{
+							"name": "With empty body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating person with empty body should return status 415\", function() {\r",
+											"    pm.response.to.have.status(415);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Without name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating person without name should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating person without name should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Without surname",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating person without surname should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating person without surname should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With empty name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating person with empty name should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating person with empty name should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With empty surname",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating person with empty surname should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating person with empty surname should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With name too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating person with name too long should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating person with name too long should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Far far away, behind the word mountains, far from t\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With surname too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating person with surname too long should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating person with surname too long should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live t\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With street too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating person with street too long should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating person with street too long should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With post code too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating person with post code too long should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating person with post code too long should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"Far far away, behind.\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With city too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating person with city too long should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating person with city too long should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With country too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating person with county too long should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating person with country too long should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With phone too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating person with phone too long should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating person with phone too long should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"Far far away, behind the word mountains,.\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Without e-mail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating person without e-mail should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating person without e-mail should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With empty e-mail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating person with empty e-mail should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating person with empty e-mail should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With invalid e-mail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating person with invalid e-mail should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating person with invalid e-mail should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"i have no e-mail\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With e-mail too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating person with e-mail too long should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Creating person with e-mail too long should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Create.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"Loremipsumdolorsitamet,consectetueradipiscingelit.Aeneancommodoligulaegetdolor.Aeneanmassa.Cumsociisnatoquepenatibusetmagnisdisparturientmontes,nasceturridiculusmus.Donecquamfelis,ultriciesnec,pellentesqueeu,pretiumquis,sem.Nullaconsequatmassaquisenim.Donec@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "New person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Creating new person should return status code 201\", function() {\r",
+									"    pm.response.to.have.status(201);\r",
+									"\r",
+									"    pm.test(\"Creating new person should return new person ID\", function() {\r",
+									"        const response = pm.response.json();\r",
+									"        pm.expect(response).to.have.property('id');\r",
+									"\r",
+									"        const id = response.id;\r",
+									"        pm.expect(id).to.be.above(0);\r",
+									"        \r",
+									"        pm.environment.set('Temp.Create.PersonId', id);\r",
+									"        pm.globals.set('Temp.Create.PersonRequest', pm.request.body.raw);\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Created person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Created person should exist and be accessible\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"\r",
+									"    pm.test(\"Created person should have correct values\", function() {\r",
+									"        const req = JSON.parse(pm.globals.get('Temp.Create.PersonRequest'));\r",
+									"        const res = pm.response.json();\r",
+									"        \r",
+									"        pm.expect(res.name).to.eql(req.name);\r",
+									"        pm.expect(res.surname).to.eql(req.surname);\r",
+									"        pm.expect(res.street).to.eql(req.street);\r",
+									"        pm.expect(res.postCode).to.eql(req.postCode);\r",
+									"        pm.expect(res.city).to.eql(req.city);\r",
+									"        pm.expect(res.country).to.eql(req.country);\r",
+									"        pm.expect(res.phoneNumber).to.eql(req.phoneNumber);\r",
+									"        pm.expect(res.email).to.eql(req.email);\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people/{{Temp.Create.PersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people",
+								"{{Temp.Create.PersonId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cleanup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleting person should return 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"\r",
+									"    pm.environment.unset('Temp.Create.PersonId');\r",
+									"    pm.globals.unset('Temp.Create.PersonRequest');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people/{{Temp.Create.PersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people",
+								"{{Temp.Create.PersonId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"const badRequestSchema = {",
+							"    \"required\": [\"status\", \"title\", \"errors\"]",
+							"};",
+							"",
+							"pm.globals.set(\"Temp.Create.BadRequestSchema\", badRequestSchema);"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Update",
+			"item": [
+				{
+					"name": "Seed",
+					"item": [
+						{
+							"name": "New admin person",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating new person should return status code 201\", function() {\r",
+											"    pm.response.to.have.status(201);\r",
+											"\r",
+											"    pm.test(\"Creating new person should return new person ID\", function() {\r",
+											"        const response = pm.response.json();\r",
+											"        pm.expect(response).to.have.property('id');\r",
+											"\r",
+											"        const id = response.id;\r",
+											"        pm.expect(id).to.be.above(0);\r",
+											"        \r",
+											"        pm.environment.set('Temp.Update.AdminPersonId', id);\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New common person",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating new person should return status code 201\", function() {\r",
+											"    pm.response.to.have.status(201);\r",
+											"\r",
+											"    pm.test(\"Creating new person should return new person ID\", function() {\r",
+											"        const response = pm.response.json();\r",
+											"        pm.expect(response).to.have.property('id');\r",
+											"\r",
+											"        const id = response.id;\r",
+											"        pm.expect(id).to.be.above(0);\r",
+											"        \r",
+											"        pm.environment.set('Temp.Update.CommonPersonId', id);\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Temp.CommonAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Authorization",
+					"item": [
+						{
+							"name": "Admin person with common token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating admin person with common token should return 403\", function () {\r",
+											"    pm.response.to.have.status(403);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Temp.CommonAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.AdminPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Update.AdminPersonId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Common person without token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating common person without token should return 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.CommonPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Update.CommonPersonId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Bad request",
+					"item": [
+						{
+							"name": "With empty body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating person with empty body should return status 415\", function() {\r",
+											"    pm.response.to.have.status(415);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.AdminPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Update.AdminPersonId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Without name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating person without name should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating person without name should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Update.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.AdminPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Update.AdminPersonId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Without surname",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating person without surname should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating person without surname should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Update.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.AdminPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Update.AdminPersonId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With empty name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating person with empty name should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating person with empty name should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Update.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.AdminPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Update.AdminPersonId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With empty surname",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating person with empty surname should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating person with empty surname should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Update.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.AdminPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Update.AdminPersonId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With name too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating person with name too long should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating person with name too long should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Update.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Far far away, behind the word mountains, far from t\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.AdminPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Update.AdminPersonId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With surname too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating person with surname too long should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating person with surname too long should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Update.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live t\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.AdminPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Update.AdminPersonId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With street too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating person with street too long should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating person with street too long should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Update.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.AdminPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Update.AdminPersonId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With post code too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating person with post code too long should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating person with post code too long should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Update.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"Far far away, behind.\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.AdminPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Update.AdminPersonId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With city too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating person with city too long should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating person with city too long should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Update.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.AdminPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Update.AdminPersonId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With country too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating person with county too long should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating person with country too long should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Update.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.AdminPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Update.AdminPersonId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With phone too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating person with phone too long should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating person with phone too long should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Update.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"Far far away, behind the word mountains,.\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.AdminPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Update.AdminPersonId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Without e-mail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating person without e-mail should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating person without e-mail should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Update.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.AdminPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Update.AdminPersonId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With empty e-mail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating person with empty e-mail should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating person with empty e-mail should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Update.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.AdminPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Update.AdminPersonId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With invalid e-mail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating person with invalid e-mail should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating person with invalid e-mail should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Update.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"i have no e-mail\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.AdminPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Update.AdminPersonId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "With e-mail too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating person with e-mail too long should return status 400\", function() {\r",
+											"    pm.response.to.have.status(400);\r",
+											"\r",
+											"    pm.test(\"Updating person with e-mail too long should return error in expected format\", function () {\r",
+											"        pm.expect(tv4.validate(pm.response.json(), pm.globals.get(\"Temp.Update.BadRequestSchema\"))).to.be.true;\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"Loremipsumdolorsitamet,consectetueradipiscingelit.Aeneancommodoligulaegetdolor.Aeneanmassa.Cumsociisnatoquepenatibusetmagnisdisparturientmontes,nasceturridiculusmus.Donecquamfelis,ultriciesnec,pellentesqueeu,pretiumquis,sem.Nullaconsequatmassaquisenim.Donec@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.AdminPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Update.AdminPersonId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Non-existing person",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Updating non-existing person should return status code 404\", function() {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/-1",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"-1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Admin person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Updating person should return status code 201\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.globals.set('Temp.Update.AdminPersonRequest', pm.request.body.raw);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.AdminPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people",
+								"{{Temp.Update.AdminPersonId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Common person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Updating person should return status code 201\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.globals.set('Temp.Update.CommonPersonRequest', pm.request.body.raw);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Temp.CommonAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.CommonPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people",
+								"{{Temp.Update.CommonPersonId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Updated person should exist and be accessible\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"\r",
+									"    pm.test(\"Updated person should have correct values\", function() {\r",
+									"        const req = JSON.parse(pm.globals.get('Temp.Update.AdminPersonRequest'));\r",
+									"        const res = pm.response.json();\r",
+									"        \r",
+									"        pm.expect(res.name).to.eql(req.name);\r",
+									"        pm.expect(res.surname).to.eql(req.surname);\r",
+									"        pm.expect(res.street).to.eql(req.street);\r",
+									"        pm.expect(res.postCode).to.eql(req.postCode);\r",
+									"        pm.expect(res.city).to.eql(req.city);\r",
+									"        pm.expect(res.country).to.eql(req.country);\r",
+									"        pm.expect(res.phoneNumber).to.eql(req.phoneNumber);\r",
+									"        pm.expect(res.email).to.eql(req.email);\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.AdminPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people",
+								"{{Temp.Update.AdminPersonId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Common person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Updated person should exist and be accessible\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"\r",
+									"    pm.test(\"Updated person should have correct values\", function() {\r",
+									"        const req = JSON.parse(pm.globals.get('Temp.Update.CommonPersonRequest'));\r",
+									"        const res = pm.response.json();\r",
+									"        \r",
+									"        pm.expect(res.name).to.eql(req.name);\r",
+									"        pm.expect(res.surname).to.eql(req.surname);\r",
+									"        pm.expect(res.street).to.eql(req.street);\r",
+									"        pm.expect(res.postCode).to.eql(req.postCode);\r",
+									"        pm.expect(res.city).to.eql(req.city);\r",
+									"        pm.expect(res.country).to.eql(req.country);\r",
+									"        pm.expect(res.phoneNumber).to.eql(req.phoneNumber);\r",
+									"        pm.expect(res.email).to.eql(req.email);\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Temp.CommonAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.CommonPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people",
+								"{{Temp.Update.CommonPersonId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleting person should return 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"\r",
+									"    pm.environment.unset('Temp.Update.AdminPersonId');\r",
+									"    pm.globals.unset('Temp.Update.AdminPersonRequest');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.AdminPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people",
+								"{{Temp.Update.AdminPersonId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Common person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleting person should return 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"\r",
+									"    pm.environment.unset('Temp.Update.CommonPersonId');\r",
+									"    pm.globals.unset('Temp.Update.CommonPersonRequest');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people/{{Temp.Update.CommonPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people",
+								"{{Temp.Update.CommonPersonId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"const badRequestSchema = {",
+							"    \"required\": [\"status\", \"title\", \"errors\"]",
+							"};",
+							"",
+							"pm.globals.set(\"Temp.Update.BadRequestSchema\", badRequestSchema);"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Delete",
+			"item": [
+				{
+					"name": "Seed",
+					"item": [
+						{
+							"name": "New admin person",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating new person should return status code 201\", function() {\r",
+											"    pm.response.to.have.status(201);\r",
+											"\r",
+											"    pm.test(\"Creating new person should return new person ID\", function() {\r",
+											"        const response = pm.response.json();\r",
+											"        pm.expect(response).to.have.property('id');\r",
+											"\r",
+											"        const id = response.id;\r",
+											"        pm.expect(id).to.be.above(0);\r",
+											"        \r",
+											"        pm.environment.set('Temp.Delete.AdminPersonId', id);\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New common person",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating new person should return status code 201\", function() {\r",
+											"    pm.response.to.have.status(201);\r",
+											"\r",
+											"    pm.test(\"Creating new person should return new person ID\", function() {\r",
+											"        const response = pm.response.json();\r",
+											"        pm.expect(response).to.have.property('id');\r",
+											"\r",
+											"        const id = response.id;\r",
+											"        pm.expect(id).to.be.above(0);\r",
+											"        \r",
+											"        pm.environment.set('Temp.Delete.CommonPersonId', id);\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Temp.CommonAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Authorization",
+					"item": [
+						{
+							"name": "Admin person with common token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Deleting admin person with common token should return 403\", function () {\r",
+											"    pm.response.to.have.status(403);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Temp.CommonAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Delete.AdminPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Delete.AdminPersonId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Common person without token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Deleting common person without token should return 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Delete.CommonPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Delete.CommonPersonId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Bad request",
+					"item": [
+						{
+							"name": "Non-existing person",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Deleting non-existing person should return status code 404\", function() {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/-1",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"-1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Admin person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleting person should return 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people/{{Temp.Delete.AdminPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people",
+								"{{Temp.Delete.AdminPersonId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Common person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleting person should return 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people/{{Temp.Delete.CommonPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people",
+								"{{Temp.Delete.CommonPersonId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Retrieving deleted person should return 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"    pm.environment.unset('Temp.Delete.AdminPersonId');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people/{{Temp.Delete.AdminPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people",
+								"{{Temp.Delete.AdminPersonId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Common person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Retrieving deleted person should return 404\", function() {\r",
+									"    pm.response.to.have.status(404);\r",
+									"    pm.environment.unset('Temp.Delete.CommonPersonId');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Temp.CommonAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people/{{Temp.Delete.CommonPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people",
+								"{{Temp.Delete.CommonPersonId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Get",
+			"item": [
+				{
+					"name": "Seed",
+					"item": [
+						{
+							"name": "New admin person",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating new person should return status code 201\", function() {\r",
+											"    pm.response.to.have.status(201);\r",
+											"\r",
+											"    pm.test(\"Creating new person should return new person ID\", function() {\r",
+											"        const response = pm.response.json();\r",
+											"        pm.expect(response).to.have.property('id');\r",
+											"\r",
+											"        const id = response.id;\r",
+											"        pm.expect(id).to.be.above(0);\r",
+											"        \r",
+											"        pm.environment.set('Temp.Get.AdminPersonId', id);\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New common person",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Creating new person should return status code 201\", function() {\r",
+											"    pm.response.to.have.status(201);\r",
+											"\r",
+											"    pm.test(\"Creating new person should return new person ID\", function() {\r",
+											"        const response = pm.response.json();\r",
+											"        pm.expect(response).to.have.property('id');\r",
+											"\r",
+											"        const id = response.id;\r",
+											"        pm.expect(id).to.be.above(0);\r",
+											"        \r",
+											"        pm.environment.set('Temp.Get.CommonPersonId', id);\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Temp.CommonAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"surname\": \"{{$randomLastName}}\",\r\n  \"street\": \"{{$randomStreetAddress}}\",\r\n  \"postCode\": \"{{$randomWord}}\",\r\n  \"city\": \"{{$randomCity}}\",\r\n  \"country\": \"{{$randomCountry}}\",\r\n  \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n  \"email\": \"{{$randomEmail}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Authorization",
+					"item": [
+						{
+							"name": "Admin person with common token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Retrieving admin person with common token should return 403\", function() {\r",
+											"    pm.response.to.have.status(403);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Temp.CommonAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Get.AdminPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Get.AdminPersonId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Common person without token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Retrieving common person without token should return 401\", function() {\r",
+											"    pm.response.to.have.status(401);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Get.CommonPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Get.CommonPersonId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Bad request",
+					"item": [
+						{
+							"name": "Non-existing person",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Retrieving non-existing person should return 404\", function() {\r",
+											"    pm.response.to.have.status(404);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/-1",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"-1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Foreign person with common user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Retrieving foreign person with common user should return 403\", function() {\r",
+											"    pm.response.to.have.status(403);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Temp.CommonAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/people/{{Temp.Get.AdminPersonId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"people",
+										"{{Temp.Get.AdminPersonId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Person",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Retrieving person should return 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"\r",
+									"    const res = pm.response.json();\r",
+									"    pm.test(\"Retrieving person should return an object\", function () {\r",
+									"        pm.expect(res).to.be.an('object');\r",
+									"\r",
+									"        pm.test(\"Retrieving person should return value in correct format\", function () {\r",
+									"            pm.expect(tv4.validate(res, pm.globals.get(\"Temp.Get.PersonSchema\"))).to.be.true;\r",
+									"        })\r",
+									"\r",
+									"        pm.test(\"Retrieving person should return correct value\", function () {\r",
+									"            pm.expect(res.id).to.eql(pm.environment.get('Temp.Get.AdminPersonId'));\r",
+									"        })\r",
+									"    })\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people/{{Temp.Get.AdminPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people",
+								"{{Temp.Get.AdminPersonId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Foreign person with admin",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Retrieving person should return 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"\r",
+									"    const res = pm.response.json();\r",
+									"    pm.test(\"Retrieving person should return an object\", function () {\r",
+									"        pm.expect(res).to.be.an('object');\r",
+									"\r",
+									"        pm.test(\"Retrieving person should return value in correct format\", function () {\r",
+									"            pm.expect(tv4.validate(res, pm.globals.get(\"Temp.Get.PersonSchema\"))).to.be.true;\r",
+									"        })\r",
+									"\r",
+									"        pm.test(\"Retrieving person should return correct value\", function () {\r",
+									"            pm.expect(res.id).to.eql(pm.environment.get('Temp.Get.CommonPersonId'));\r",
+									"        })\r",
+									"    })\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people/{{Temp.Get.CommonPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people",
+								"{{Temp.Get.CommonPersonId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Seeded person 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleting person should return status 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"    pm.environment.unset('Temp.Get.AdminPersonId');\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people/{{Temp.Get.AdminPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people",
+								"{{Temp.Get.AdminPersonId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Seeded person 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Deleting person should return status 204\", function() {\r",
+									"    pm.response.to.have.status(204);\r",
+									"    pm.environment.unset('Temp.Get.CommonPersonId');\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/people/{{Temp.Get.CommonPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"people",
+								"{{Temp.Get.CommonPersonId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"const person = {",
+							"    \"required\": [\"id\", \"name\", \"surname\", \"email\"],",
+							"    \"properties\": {",
+							"        \"id\": {\"type\": \"integer\"},",
+							"        \"name\": {\"type\": \"string\"},",
+							"        \"surname\": {\"type\": \"string\"},",
+							"        \"street\": {\"type\": \"string\"},",
+							"        \"postCode\": {\"type\": \"string\"},",
+							"        \"city\": {\"type\": \"string\"},",
+							"        \"country\": {\"type\": \"string\"},",
+							"        \"phoneNumber\": {\"type\": \"string\"},",
+							"        \"email\": {\"type\": \"string\"}",
+							"    }",
+							"};",
+							"",
+							"pm.globals.set(\"Temp.Get.PersonSchema\", person);"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Cleanup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Running clenup request should return 404\", function() {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function cleanup() {\r",
+							"    const cleanEnv = _.keys(pm.environment.toObject())\r",
+							"    _.each(cleanEnv, (arrItem) => {\r",
+							"        if (arrItem.startsWith(\"Temp.\")) {\r",
+							"            pm.environment.unset(arrItem)\r",
+							"        }\r",
+							"    })\r",
+							"\r",
+							"    const cleanVar = _.keys(pm.globals.toObject())\r",
+							"    _.each(cleanVar, (arrItem) => {\r",
+							"        if (arrItem.startsWith(\"Temp.\")) {\r",
+							"            pm.globals.unset(arrItem)\r",
+							"        }\r",
+							"    })\r",
+							"}\r",
+							"\r",
+							"cleanup();"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "CLEAN",
+				"header": [],
+				"url": {
+					"raw": "{{ApiBaseUrl}}",
+					"host": [
+						"{{ApiBaseUrl}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{Temp.AdminAccessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"if (!pm.environment.get(\"Temp.AdminAccessToken\") ||",
+					"    pm.environment.get(\"Temp.AdminAccessToken.Timeout\") < Date.now())",
+					"{",
+					"    pm.sendRequest(",
+					"        {",
+					"            url: pm.environment.get(\"IdentityServerUrl\"),",
+					"            method: 'POST',",
+					"            header: {",
+					"                'Content-Type': 'application/x-www-form-urlencoded',",
+					"            },",
+					"            body: {",
+					"                mode: 'urlencoded',",
+					"                urlencoded: [",
+					"                    {key: \"client_id\", value: \"client\", disabled: false},",
+					"                    {key: \"grant_type\", value: \"password\", disabled: false},",
+					"                    {key: \"username\", value: pm.environment.get(\"AdminUsername\"), disabled: false},",
+					"                    {key: \"password\", value: pm.environment.get(\"AdminPassword\"), disabled: false}",
+					"                ]",
+					"            }",
+					"        },",
+					"        function (err, res) {",
+					"            pm.environment.set(\"Temp.AdminAccessToken\", res.json().access_token);",
+					"            var now = new Date();",
+					"            var timeout = now.setMinutes(now.getMinutes() + 20);",
+					"            pm.environment.set(\"Temp.AdminAccessToken.Timeout\", timeout);",
+					"        }",
+					"    );",
+					"}",
+					"",
+					"if (!pm.environment.get(\"Temp.CommonAccessToken\") ||",
+					"    pm.environment.get(\"Temp.CommonAccessToken.Timeout\") < Date.now())",
+					"{",
+					"    pm.sendRequest(",
+					"        {",
+					"            url: pm.environment.get(\"IdentityServerUrl\"),",
+					"            method: 'POST',",
+					"            header: {",
+					"                'Content-Type': 'application/x-www-form-urlencoded',",
+					"            },",
+					"            body: {",
+					"                mode: 'urlencoded',",
+					"                urlencoded: [",
+					"                    {key: \"client_id\", value: \"client\", disabled: false},",
+					"                    {key: \"grant_type\", value: \"password\", disabled: false},",
+					"                    {key: \"username\", value: pm.environment.get(\"CommonUsername\"), disabled: false},",
+					"                    {key: \"password\", value: pm.environment.get(\"CommonPassword\"), disabled: false}",
+					"                ]",
+					"            }",
+					"        },",
+					"        function (err, res) {",
+					"            pm.environment.set(\"Temp.CommonAccessToken\", res.json().access_token);",
+					"",
+					"            var now = new Date();",
+					"            var timeout = now.setMinutes(now.getMinutes() + 20);",
+					"            pm.environment.set(\"Temp.CommonAccessToken.Timeout\", timeout);",
+					"        }",
+					"    );",
+					"}",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
