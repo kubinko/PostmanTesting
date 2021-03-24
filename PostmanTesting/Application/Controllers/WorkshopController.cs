@@ -45,7 +45,7 @@ namespace PostmanTesting.Application.Controllers
         [HttpGet("{id}", Name = nameof(GetWorkshop))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetWorkshopQuery.Workshop))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetWorkshop(long id)
+        public ActionResult<GetWorkshopQuery.Workshop> GetWorkshop(long id)
         {
             GetWorkshopQuery.Workshop workshop = _workshopService.GetWorkshop(new GetWorkshopQuery(id));
             if (workshop != null)

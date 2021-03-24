@@ -44,7 +44,7 @@ namespace PostmanTesting.Application.Controllers
         [HttpGet("{id}", Name = nameof(GetPerson))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetPersonQuery.Person))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetPerson(long id)
+        public ActionResult<GetPersonQuery.Person> GetPerson(long id)
         {
             GetPersonQuery.Person person = _peopleService.GetPerson(new GetPersonQuery(id));
             if (person != null)
