@@ -76,7 +76,7 @@ namespace PostmanTesting.Application.Services
         }
 
         /// <inheritdoc/>
-        public Task<long> AddPersonToWorkshop(AddPersonToWorkshopCommand command)
+        public async Task<long> AddPersonToWorkshop(AddPersonToWorkshopCommand command)
         {
             var person = _peopleRepository.GetPerson(command.PersonId);
             var workshop = _workshopRepository.GetWorkshop(command.WorkshopId);
@@ -96,11 +96,13 @@ namespace PostmanTesting.Application.Services
                 throw new RequestConflictException();
             }
 
-            return _attendanceRepository.AddPersonToWorkshop(command.WorkshopId, command.PersonId);
+            await _workshopRepository.IncreaseAttendance(workshop.Id);
+
+            return await _attendanceRepository.AddPersonToWorkshop(command.WorkshopId, command.PersonId);
         }
 
         /// <inheritdoc/>
-        public Task RemovePersonFromWorkshop(RemovePersonFromWorkshopCommand command)
+        public async Task RemovePersonFromWorkshop(RemovePersonFromWorkshopCommand command)
         {
             var person = _peopleRepository.GetPerson(command.PersonId);
             var workshop = _workshopRepository.GetWorkshop(command.WorkshopId);
@@ -114,7 +116,13 @@ namespace PostmanTesting.Application.Services
                 throw new ResourceIsForbiddenException();
             }
 
-            return _attendanceRepository.RemovePersonFromWorkshop(command.WorkshopId, command.PersonId);
+            var attendees = GetWorkshopAttendees(new GetWorkshopAttendeesQuery(command.WorkshopId));
+            if (attendees.Any(a => a.Id == command.PersonId))
+            {
+                await _workshopRepository.DecreaseAttendance(workshop.Id);
+            }
+
+            await _attendanceRepository.RemovePersonFromWorkshop(command.WorkshopId, command.PersonId);
         }
     }
 }

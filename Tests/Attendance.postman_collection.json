@@ -1376,7 +1376,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Removing  non-existing attendee from workshop should return 404\", function() {\r",
+									"pm.test(\"Removing non-existing attendee from workshop should return 404\", function() {\r",
 									"    pm.response.to.have.status(404);\r",
 									"});"
 								],
@@ -1447,6 +1447,43 @@
 							],
 							"path": [
 								"attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Attendees count",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Common workshop should exist\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"\r",
+									"    const res = pm.response.json();\r",
+									"    pm.test(\"Common workshop should have correct number of attendees\", function() {\r",
+									"        pm.expect(res.attendeesCount).to.eql(1);\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/workshop/{{Temp.Attendance.CommonWorkshopId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"workshop",
+								"{{Temp.Attendance.CommonWorkshopId}}"
 							]
 						}
 					},
@@ -1661,7 +1698,7 @@
 									"\r",
 									"    const res = pm.response.json();\r",
 									"    pm.test(\"Common workshop should have correct number of attendees\", function() {\r",
-									"        pm.expect(res.attendeesCount).to.eql(0);\r",
+									"        pm.expect(res.attendeesCount).to.eql(1);\r",
 									"    });\r",
 									"});"
 								],
@@ -1684,6 +1721,46 @@
 						}
 					},
 					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"const personHeader = {",
+							"    \"required\": [\"id\", \"name\", \"surname\", \"email\"],",
+							"    \"properties\": {",
+							"        \"id\": {\"type\": \"integer\"},",
+							"        \"name\": {\"type\": \"string\"},",
+							"        \"surname\": {\"type\": \"string\"},",
+							"        \"email\": {\"type\": \"string\"}",
+							"    }",
+							"};",
+							"pm.globals.set(\"Temp.Attendance.PersonHeaderSchema\", personHeader);",
+							"",
+							"const workshopHeader = {",
+							"    \"required\": [\"id\", \"name\", \"date\", \"price\"],",
+							"    \"properties\": {",
+							"        \"id\": {\"type\": \"integer\"},",
+							"        \"name\": {\"type\": \"string\"},",
+							"        \"date\": {\"type\": \"string\"},",
+							"        \"price\": {\"type\": \"number\"}",
+							"    }",
+							"};",
+							"pm.globals.set(\"Temp.Attendance.WorkshopHeaderSchema\", workshopHeader);"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},

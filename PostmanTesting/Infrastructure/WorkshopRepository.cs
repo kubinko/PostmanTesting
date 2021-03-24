@@ -61,7 +61,8 @@ namespace PostmanTesting.Infrastructure
             if (workshop != null)
             {
                 workshop.AttendeesCount++;
-                await _database.EditAsync(workshop, default, nameof(InfrastructureWorkshop.AttendeesCount));
+                await _database.EditAsync(workshop, default, nameof(InfrastructureWorkshop.Id),
+                    nameof(InfrastructureWorkshop.AttendeesCount));
             }
         }
 
@@ -73,7 +74,8 @@ namespace PostmanTesting.Infrastructure
             if (workshop != null)
             {
                 workshop.AttendeesCount--;
-                await _database.EditAsync(workshop, default, nameof(InfrastructureWorkshop.AttendeesCount));
+                await _database.EditAsync(workshop, default, nameof(InfrastructureWorkshop.Id),
+                    nameof(InfrastructureWorkshop.AttendeesCount));
             }
         }
 
