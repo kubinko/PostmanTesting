@@ -23,6 +23,10 @@ namespace PostmanTesting.Application.Controllers
             {
                 code = StatusCodes.Status403Forbidden;
             }
+            else if (exception is RequestConflictException)
+            {
+                code = StatusCodes.Status409Conflict;
+            }
 
             return StatusCode(code, exception.Message);
         }

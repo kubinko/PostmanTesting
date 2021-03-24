@@ -90,6 +90,12 @@ namespace PostmanTesting.Application.Services
                 throw new ResourceIsForbiddenException();
             }
 
+            var attendees = GetWorkshopAttendees(new GetWorkshopAttendeesQuery(command.WorkshopId));
+            if (attendees.Any(a => a.Id == command.PersonId))
+            {
+                throw new RequestConflictException();
+            }
+
             return _attendanceRepository.AddPersonToWorkshop(command.WorkshopId, command.PersonId);
         }
 
