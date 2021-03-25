@@ -24,6 +24,14 @@ namespace PostmanTesting.Domain
         Task RemovePersonFromWorkshop(long workshopId, long personId);
 
         /// <summary>
+        /// Checks whether invoice for attendace was generated.
+        /// </summary>
+        /// <param name="workshopId">Workshop ID.</param>
+        /// <param name="personId">Person ID.</param>
+        /// <returns><c>True</c>, if invoice was generated; otherwise <c>false</c>.</returns>
+        bool CheckInvoiceGenerated(long workshopId, long personId);
+
+        /// <summary>
         /// Gets all workshop attendees.
         /// </summary>
         /// <param name="id">Workshop ID.</param>

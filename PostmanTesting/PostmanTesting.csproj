@@ -26,6 +26,9 @@
     <None Update="SqlScripts\20210310001_InitializationScript.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="SqlScripts\20210325001_Invoices.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="SqlScripts\20210321001_Attendance.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

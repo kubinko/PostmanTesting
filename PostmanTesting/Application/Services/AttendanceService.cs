@@ -76,6 +76,24 @@ namespace PostmanTesting.Application.Services
         }
 
         /// <inheritdoc/>
+        public bool CheckInvoiceGenerated(CheckInvoiceGeneratedQuery query)
+        {
+            var person = _peopleRepository.GetPerson(query.PersonId);
+            var workshop = _workshopRepository.GetWorkshop(query.WorkshopId);
+
+            if (person == null || workshop == null)
+            {
+                throw new NotFoundException();
+            }
+            else if ((person.CreatedBy != _userInfo.UserId || workshop.CreatedBy != _userInfo.UserId) && !_userInfo.IsAdmin)
+            {
+                throw new ResourceIsForbiddenException();
+            }
+
+            return _attendanceRepository.CheckInvoiceGenerated(query.WorkshopId, query.PersonId);
+        }
+
+        /// <inheritdoc/>
         public async Task<long> AddPersonToWorkshop(AddPersonToWorkshopCommand command)
         {
             var person = _peopleRepository.GetPerson(command.PersonId);

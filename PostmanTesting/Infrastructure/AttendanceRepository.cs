@@ -39,6 +39,15 @@ namespace PostmanTesting.Infrastructure
             => _database.DeleteAsync<Attendance>(a => a.WorkshopId == workshopId && a.PersonId == personId);
 
         /// <inheritdoc/>
+        public bool CheckInvoiceGenerated(long workshopId, long personId)
+        {
+            var attendance = _database.Query<Attendance>()
+                .Where(a => a.WorkshopId == workshopId && a.PersonId == personId)
+                .FirstOrDefault();
+            return (attendance != null && attendance.InvoiceGenerated);
+        }
+
+        /// <inheritdoc/>
         public IEnumerable<Domain.Person> GetWorkshopAttendees(long id)
         {
             var attendance = _database.Query<Attendance>().Where(a => a.WorkshopId == id).ToArray();

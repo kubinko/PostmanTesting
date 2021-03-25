@@ -64,6 +64,30 @@ namespace PostmanTesting.Application.Controllers
             => _attendanceService.GetPersonWorkshops(new GetPersonWorkshops(id));
 
         /// <summary>
+        /// Checks whether invoice was generated.
+        /// </summary>
+        /// <param name="workshopId">Workshop ID.</param>
+        /// <param name="personId">Person ID.</param>
+        /// <response code="200">Ok. Invoice was generated.</response>
+        /// <response code="403">Forbidden when user doesn't have permission for specified person or workshop.</response>
+        /// <response code="404">Invoice for specified workshop and person doesn't exist.</response>
+        [HttpGet("invoices/{workshopId}/{personId}", Name = nameof(CheckInvoiceGenerated))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult CheckInvoiceGenerated(long workshopId, long personId)
+        {
+            if (_attendanceService.CheckInvoiceGenerated(new CheckInvoiceGeneratedQuery(workshopId, personId)))
+            {
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        /// <summary>
         /// Adds person to workshop.
         /// </summary>
         /// <param name="command">Data for adding person to workshop.</param>

@@ -8,5 +8,6 @@
         public long Id { get; set; }
         public long WorkshopId { get; set; }
         public long PersonId { get; set; }
+        public bool InvoiceGenerated { get; set; }
     }
 }

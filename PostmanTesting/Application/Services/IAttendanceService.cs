@@ -25,6 +25,13 @@ namespace PostmanTesting.Application.Services
         IEnumerable<GetPersonWorkshops.Workshop> GetPersonWorkshops(GetPersonWorkshops query);
 
         /// <summary>
+        /// Checks whether invoice was generated for attendee's attendance at workshop.
+        /// </summary>
+        /// <param name="query">Query.</param>
+        /// <returns><c>True</c>, if invoice was generated; otherwise <c>false</c>.</returns>
+        bool CheckInvoiceGenerated(CheckInvoiceGeneratedQuery query);
+
+        /// <summary>
         /// Adds person to workshop.
         /// </summary>
         /// <param name="command">Command.</param>

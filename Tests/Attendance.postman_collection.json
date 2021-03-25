@@ -921,6 +921,39 @@
 			"name": "Check",
 			"item": [
 				{
+					"name": "Check invoice",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Checking generated invoice should return status 200\", function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance/invoices/{{Temp.Attendance.AdminWorkshopId}}/{{Temp.Attendance.AdminPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance",
+								"invoices",
+								"{{Temp.Attendance.AdminWorkshopId}}",
+								"{{Temp.Attendance.AdminPersonId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Admin workshop attendees",
 					"event": [
 						{
