@@ -9,6 +9,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PostmanTesting.Options;
+using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace PostmanTesting
 {
@@ -39,7 +43,13 @@ namespace PostmanTesting
             services.AddRepositories();
             services.AddServices();
 
-            services.AddSwaggerDocumentation(Configuration);
+            services.AddSwaggerDocumentation(Configuration, options =>
+            {
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath, true);
+                options.AddFluentValidationRules();
+            });
             services.AddBasicHealthChecks(Configuration);
         }
 
