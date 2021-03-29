@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "50af2956-526a-4a5c-b8bd-7c6a7d31ca59",
+		"_postman_id": "f62b4ace-34b3-48ea-ba59-cb37e89a04e5",
 		"name": "Attendance",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -690,6 +690,98 @@
 					"response": []
 				},
 				{
+					"name": "Check invoice",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"async function retryWithExponentialBackOff(testFunc) {\r",
+									"    const hackForWaiting = setInterval(() => {}, 300000);\r",
+									"\r",
+									"    var maxAttempts = 3;\r",
+									"    var currentAttempt = 1;\r",
+									"    var isTestFailing = false;\r",
+									"    var delayInMilliseconds = 500;\r",
+									"    var response = pm.response;\r",
+									"\r",
+									"    do {\r",
+									"        try {\r",
+									"            isTestFailing = false;\r",
+									"\r",
+									"            try {\r",
+									"                testFunc(response);\r",
+									"                pm.test(\"Pass all tests\", () => true);                            \r",
+									"            }\r",
+									"            catch (e) {\r",
+									"                console.error(e);\r",
+									"                isTestFailing = true;\r",
+									"                console.log(`delay ${delayInMilliseconds} milliseconds`);\r",
+									"                await delay(delayInMilliseconds);\r",
+									"                delayInMilliseconds = delayInMilliseconds * 2;\r",
+									"                response = await sendRequest(pm.request);\r",
+									"            }\r",
+									"        }\r",
+									"        catch (ex) {\r",
+									"            console.error(ex);\r",
+									"        }\r",
+									"        \r",
+									"        currentAttempt += 1;\r",
+									"    } \r",
+									"    while (isTestFailing && (currentAttempt <= maxAttempts));\r",
+									"\r",
+									"    if (isTestFailing) {\r",
+									"        pm.test(\"Fail tests\", () => { pm.expect.fail(); });        \r",
+									"    }\r",
+									"\r",
+									"    clearInterval(hackForWaiting);\r",
+									"}\r",
+									"\r",
+									"function sendRequest(req) {\r",
+									"    return new Promise((resolve, reject) => {\r",
+									"        pm.sendRequest(req, (err, res) => {\r",
+									"            if (err) {\r",
+									"                return reject(err);\r",
+									"            }\r",
+									"            return resolve(res);\r",
+									"        })\r",
+									"    });\r",
+									"}\r",
+									"\r",
+									"function delay(milliseconds) {\r",
+									"    return new Promise(resolve => setTimeout(resolve, milliseconds));\r",
+									"}\r",
+									"\r",
+									"(async function main() {\r",
+									"    await retryWithExponentialBackOff(response =>\r",
+									"        {\r",
+									"            pm.expect(response.code).to.eql(200);\r",
+									"        });\r",
+									"})();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/attendance/invoices/{{Temp.Attendance.AdminWorkshopId}}/{{Temp.Attendance.AdminPersonId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"attendance",
+								"invoices",
+								"{{Temp.Attendance.AdminWorkshopId}}",
+								"{{Temp.Attendance.AdminPersonId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Add attendee 2",
 					"event": [
 						{
@@ -920,39 +1012,6 @@
 		{
 			"name": "Check",
 			"item": [
-				{
-					"name": "Check invoice",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Checking generated invoice should return status 200\", function() {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{ApiBaseUrl}}/attendance/invoices/{{Temp.Attendance.AdminWorkshopId}}/{{Temp.Attendance.AdminPersonId}}",
-							"host": [
-								"{{ApiBaseUrl}}"
-							],
-							"path": [
-								"attendance",
-								"invoices",
-								"{{Temp.Attendance.AdminWorkshopId}}",
-								"{{Temp.Attendance.AdminPersonId}}"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "Admin workshop attendees",
 					"event": [
